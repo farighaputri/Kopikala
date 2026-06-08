@@ -1,0 +1,593 @@
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Patrick Hand', cursive;
+    background:#f3ede3 url("../media/BG JAM.png") repeat;
+    background-size:1400px auto;
+    color:#3a1f10;
+    position:relative;
+}
+
+body::before{
+    content:'';
+    position:fixed;
+    inset:0;
+    background:rgba(243,237,227,.92);
+    z-index:-1;
+}
+
+/* ================= HEADER ================= */
+
+.topbar{
+    display:flex;
+    align-items:center;
+    padding:14px 40px;
+    border-bottom:1px solid #d8cabd;
+}
+
+.logo{
+    width:170px;
+    margin-right:auto;
+}
+
+.nav-menu{
+    display:flex;
+    gap:35px;
+    font-size:15px;
+    align-items:center;
+}
+
+.nav-menu a{
+    color:#2f180d;
+    text-decoration:none;
+}
+
+.profile-icon{
+    font-size:26px;
+    color:#2f180d;
+    margin-left:25px;
+}
+
+/* ================= WRAPPER ================= */
+
+.payment-wrapper{
+    max-width:1320px;
+    margin:auto;
+    padding:35px 40px 60px;
+}
+
+/* ================= TITLE ================= */
+
+.payment-title{
+    font-size:52px;
+    font-weight:normal;
+    margin-bottom:12px;
+}
+
+/* ================= STEP ================= */
+
+.checkout-steps{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:26px;
+    flex-wrap:wrap;
+}
+
+.step{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#866f5f;
+    font-size:15px;
+}
+
+.step-circle{
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:#ccb8a5;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+}
+
+.step.active{
+    color:#3a1f10;
+}
+
+.step.active .step-circle{
+    background:#4b2411;
+}
+
+.step-line{
+    width:36px;
+    height:2px;
+    background:#ccb8a5;
+}
+
+.step-line.active{
+    background:#4b2411;
+}
+
+/* ================= PICKUP ================= */
+
+.pickup-box{
+    width:fit-content;
+    background:#7a5337;
+    color:white;
+    border-radius:18px;
+    padding:16px 20px;
+    margin-left:auto;
+    margin-bottom:22px;
+}
+
+.pickup-location{
+    display:flex;
+    gap:12px;
+}
+
+.pickup-location i{
+    margin-top:4px;
+}
+
+.pickup-box strong{
+    display:block;
+    font-size:14px;
+    margin-bottom:3px;
+}
+
+.pickup-box span{
+    font-size:22px;
+    line-height:1.2;
+}
+
+.branch-address{
+    margin-top:5px;
+    font-size:13px;
+    opacity:.9;
+}
+
+/* ================= MAIN CARD ================= */
+
+.main-card{
+    background:white;
+    border-radius:24px;
+    padding:26px;
+    border:1px solid #e5d8cb;
+}
+
+.payment-layout{
+    display:grid;
+    grid-template-columns:1.2fr .8fr;
+    gap:35px;
+}
+
+/* ================= LEFT ================= */
+
+.section-title{
+    font-size:34px;
+    margin-bottom:18px;
+}
+
+.estimation{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#6b4325;
+    color:white;
+    padding:9px 18px;
+    border-radius:999px;
+    font-size:15px;
+    margin-bottom:18px;
+}
+
+.cart-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    background:#ece5db;
+    border-radius:16px;
+    padding:12px;
+}
+
+.item-left{
+    display:flex;
+    gap:14px;
+    align-items:center;
+}
+
+.cart-item img{
+    width:110px;
+    height:95px;
+    object-fit:cover;
+    border-radius:12px;
+}
+
+.item-info h4{
+    font-size:28px;
+    font-weight:normal;
+    margin-bottom:3px;
+}
+
+.item-info p{
+    font-size:14px;
+    color:#6b5848;
+}
+
+.item-price{
+    margin-top:8px;
+    font-size:24px;
+}
+
+/* ================= QTY ================= */
+
+.qty-box{
+    display:flex;
+    align-items:center;
+    border:1px solid #4b2411;
+    border-radius:10px;
+    overflow:hidden;
+    background:white;
+}
+
+.qty-box button{
+    width:32px;
+    height:32px;
+    border:none;
+    background:white;
+    cursor:pointer;
+    font-size:20px;
+    font-family:'Patrick Hand', cursive;
+}
+
+.qty-box span{
+    width:34px;
+    text-align:center;
+    font-size:17px;
+}
+
+/* ================= SUMMARY ================= */
+
+.summary-title{
+    font-size:32px;
+    font-weight:normal;
+    margin-bottom:26px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:18px;
+    font-size:22px;
+}
+
+.summary-divider{
+    border-top:1px solid #d7c9bc;
+    margin:24px 0;
+}
+
+.total{
+    font-size:30px;
+}
+
+.checkout-btn{
+    width:100%;
+    height:52px;
+    border:none;
+    border-radius:10px;
+    background:#4b2411;
+    color:white;
+    font-family:'Patrick Hand', cursive;
+    font-size:20px;
+    cursor:pointer;
+    margin-top:28px;
+    transition:.2s;
+}
+
+.checkout-btn:hover{
+    background:#2e1408;
+}
+
+/* ================= FOOTER ================= */
+
+/* ================= FOOTER ================= */
+
+footer{
+    background-color:#3c1f0e;
+    color:#fff8f0;
+
+    padding:70px 60px 0;
+
+    position:relative;
+    overflow:hidden;
+}
+
+/* CONTAINER */
+.footer-container{
+    max-width:1200px;
+    margin:0 auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:50px;
+
+    position:relative;
+    z-index:5;
+}
+
+/* ================= LEFT ================= */
+
+.footer-left{
+    flex:1;
+}
+
+.footer-left img{
+    width:180px;
+    height:auto;
+}
+
+.footer-left p{
+    margin-top:10px;
+
+    font-size:1.05rem;
+    color:#f8e6cc;
+
+    max-width:280px;
+    line-height:1.6;
+}
+
+/* ================= CENTER ================= */
+
+.footer-center{
+    flex:10;
+    text-align:center;
+    margin-top: -20px;
+}
+
+.footer-center h3{
+    margin-bottom:16px;
+    font-size:1.4rem;
+    
+}
+
+.footer-center ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.footer-center li{
+    margin-bottom:10px;
+}
+
+.footer-center a{
+    color:#fff8f0;
+    font-size:1.05rem;
+    transition:.3s;
+}
+
+.footer-center a:hover{
+    color:#f1c27d;
+}
+
+footer {
+    margin-top: 90px;
+    background: #3b1604;
+    color: white;
+    padding-top: 30px;
+    padding-bottom: 25px;
+}
+
+.footer-container {
+    max-width: var(--container);
+    margin: 0 auto;
+
+    padding: 0 45px;
+
+    display: flex;
+    justify-content: space-between;
+
+    align-items: flex-start; 
+}
+
+.footer-left img {
+    width: 190px; /* kecilin logo */
+
+}
+
+.footer-left p {
+    margin-top: 6px;
+    font-size: 15px;
+    white-space:nowrap; /* biar ga turun */
+}
+
+.footer-title {
+    font-size: 18px; /* kecilin title */
+    margin-bottom: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+}
+
+/* ================= FOOTER RIGHT ================= */
+
+.footer-right{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:flex-end; /* pojok kanan */
+    text-align:right;
+}
+
+/* Judul */
+.footer-right h3{
+    margin:0 0 14px;
+
+    font-size:1.2rem;
+    color:#fff8f0;
+
+    white-space:nowrap; /* biar ga turun */
+}
+
+/* ================= SOCIAL ICONS ================= */
+
+.social-icons{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+
+    gap:14px;
+}
+
+/* Link */
+.social-icons a{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Icon */
+.social-icons img{
+    width:34px;
+    height:34px;
+
+    object-fit:contain;
+
+    transition:0.3s ease;
+}
+
+/* Hover */
+.social-icons img:hover{
+    transform:scale(1.12);
+}
+/* ================= FOOTER CUPS ================= */
+.footer-cups{
+    width:100vw;
+    height:120px;
+
+    position:relative;
+
+    display:flex;
+    justify-content:space-evenly;
+    align-items:flex-end;
+
+    padding:0 10px;
+
+    left:50%;
+    right:50%;
+    margin-left:-50vw;
+    margin-right:-50vw;
+
+    overflow:visible;
+
+    /* background utama footer */
+    background:transparent;
+}
+
+/* COKLAT MUDA DI TENGAH */
+.footer-cups::before{
+    content:'';
+
+    position:absolute;
+
+    left:0;
+    top:100%;
+
+    transform:translateY(-50%);
+
+    width:100%;
+    height:90px;
+
+    background:#8b6345;
+
+    z-index:1;
+}
+
+/* CUP */
+.footer-cups img{
+    position:relative;
+    z-index:3;
+
+    width:auto;
+    height:110px;
+
+    object-fit:contain;
+    display:block;
+
+    flex-shrink:0;
+}
+
+/* POSISI CUP BEBAS */
+.footer-cups img:nth-child(1){ transform:translateY(-10px); }
+.footer-cups img:nth-child(2){ transform:translateY(8px); }
+.footer-cups img:nth-child(3){ transform:translateY(-6px); }
+.footer-cups img:nth-child(4){ transform:translateY(5px); }
+.footer-cups img:nth-child(5){ transform:translateY(-10px); }
+.footer-cups img:nth-child(6){ transform:translateY(8px); }
+.footer-cups img:nth-child(7){ transform:translateY(-6px); }
+.footer-cups img:nth-child(8){ transform:translateY(5px); }
+.footer-cups img:nth-child(9){ transform:translateY(-10px); }
+.footer-cups img:nth-child(10){ transform:translateY(8px); }
+.footer-cups img:nth-child(11){ transform:translateY(-6px); }
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:950px){
+
+    .payment-layout{
+        grid-template-columns:1fr;
+    }
+
+    .pickup-box{
+        margin-left:0;
+        width:100%;
+    }
+
+    .payment-title{
+        font-size:44px;
+    }
+
+    .cart-item{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:16px;
+    }
+
+    .item-left{
+        width:100%;
+    }
+
+    .cart-item img{
+        width:100%;
+        height:220px;
+    }
+}

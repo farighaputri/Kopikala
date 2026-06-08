@@ -1,0 +1,505 @@
+/* ================= GLOBAL ================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#F5F6FA;
+    font-family:'Plus Jakarta Sans', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.dashboard{
+    max-width:1400px;
+    margin:auto;
+    padding:20px;
+}
+
+.dashboard-admin-wrapper{
+    padding:30px;
+    background:#F5F6FA;
+    min-height:100vh;
+}
+.dashboard-select{
+    border:1px solid #E5E7EB;
+    border-radius:8px;
+    padding:6px 12px;
+    background:#fff;
+}
+
+.target-wrapper{
+    display:flex;
+    gap:16px;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.target-circle{
+    width:80px;
+    height:80px;
+}
+
+.target-box{
+    flex:1;
+    border:1px solid #E5E7EB;
+    border-radius:12px;
+    padding:18px;
+    text-align:center;
+}
+
+.target-summary{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.summary-item{
+    border:1px solid #E5E7EB;
+    border-radius:12px;
+    padding:14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.summary-item i{
+    font-size:20px;
+    color:#F59E0B;
+}
+
+.summary-item small{
+    display:block;
+    color:#6B7280;
+}
+
+.summary-item strong{
+    display:block;
+    margin-top:4px;
+}
+/* ================= WELCOME ================= */
+
+.welcome-title{
+    font-size:32px;
+    font-weight:800;
+    color:#202224;
+    margin-bottom:6px;
+}
+
+.welcome-subtitle{
+    color:#7B7B7B;
+    font-size:14px;
+    margin-bottom:28px;
+}
+
+/* ================= TOP WIDGET ================= */
+
+.top-widgets-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:24px;
+    margin-bottom:28px;
+}
+
+.widget-stat-card{
+    background:white;
+    border-radius:18px;
+    padding:24px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    box-shadow:0 2px 12px rgba(0,0,0,0.04);
+    transition:.3s;
+}
+
+.widget-stat-card:hover{
+    transform:translateY(-3px);
+}
+
+.widget-title{
+    font-size:14px;
+    font-weight:600;
+    color:#707070;
+    margin-bottom:10px;
+}
+
+.widget-value{
+    font-size:28px;
+    font-weight:800;
+    color:#202224;
+    margin-bottom:10px;
+}
+
+.trend-text{
+    font-size:13px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+
+.trend-up{
+    color:#00B69B;
+}
+
+.trend-text span{
+    color:#808080;
+    font-weight:500;
+}
+
+.widget-icon{
+    width:65px;
+    height:65px;
+    border-radius:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:24px;
+}
+
+/* ================= MAIN GRID ================= */
+
+.main-dashboard-layout{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:24px;
+}
+
+/* ================= CARD ================= */
+
+.card,
+.dashboard-card{
+    background:#ffffff;
+    border-radius:18px;
+    padding:24px;
+    box-shadow:0 8px 24px rgba(15,23,42,.04);
+    display:flex;
+    flex-direction:column;
+    margin-bottom:24px;
+}
+
+/* ================= CARD HEADER ================= */
+
+.card-header-flex{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:22px;
+}
+
+.card-header-flex h3,
+.section-title{
+    font-size:18px;
+    font-weight:800;
+    color:#202224;
+}
+
+.view-all-link{
+    text-decoration:none;
+    color:#7A5234;
+    font-size:12px;
+    font-weight:700;
+    cursor:pointer;
+}
+
+/* ================= SUMMARY GRID ================= */
+
+.summary-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    grid-auto-rows:minmax(100px,auto);
+    gap:16px 20px;
+    margin-bottom:20px;
+}
+
+.summary-box{
+    background:#fff;
+    border-radius:12px;
+    padding:20px;
+    box-shadow:0 6px 20px rgba(0,0,0,.05);
+    text-align:center;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+.summary-box h3{
+    font-size:13px;
+    font-weight:500;
+    color:#6b7280;
+    margin-bottom:6px;
+}
+
+.summary-box p{
+    font-size:20px;
+    font-weight:700;
+    color:#111827;
+}
+
+/* ================= TABLE ================= */
+
+.table,
+.admin-data-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+}
+
+.table thead th,
+.admin-data-table th{
+    text-align:left;
+    padding:14px 10px;
+    color:#909090;
+    font-size:12px;
+    font-weight:700;
+    border-bottom:1px solid #ECECEC;
+    background-color:#f9fafb;
+}
+
+.table tbody td,
+.admin-data-table td{
+    padding:15px 10px;
+    border-bottom:1px solid #ECECEC;
+    color:#202224;
+    font-size:13px;
+}
+
+.table tbody tr:last-child td,
+.admin-data-table tr:last-child td{
+    border-bottom:none;
+}
+
+/* ================= BADGES ================= */
+
+.branch-badge{
+    padding:5px 12px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:700;
+    display:inline-block;
+}
+
+.branch-semeru{
+    background:#FFF0DA;
+    color:#B86A00;
+}
+
+.branch-djuanda{
+    background:#E3F1FF;
+    color:#1D63D3;
+}
+
+.branch-office{
+    background:#FFE2E2;
+    color:#D61F1F;
+}
+
+.category-badge{
+    padding:5px 10px;
+    background:#F1F5F9;
+    border-radius:8px;
+    font-size:11px;
+    color:#64748B;
+    font-weight:700;
+}
+
+.badge{
+    padding:4px 10px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:600;
+}
+
+.badge-success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+/* ================= STATUS ================= */
+
+.status-badge,
+.tag{
+    padding:6px 12px;
+    border-radius:999px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.status-waiting,
+.tag-warning{
+    background:#E2E8F0;
+    color:#475569;
+}
+
+.status-confirmed{
+    background:#FEF3C7;
+    color:#B45309;
+}
+
+.status-ready,
+.tag-info{
+    background:#DBEAFE;
+    color:#1D4ED8;
+}
+
+.status-finished,
+.tag-success{
+    background:#DCFCE7;
+    color:#15803D;
+}
+
+/* ================= FILTER BUTTON ================= */
+
+.filter-btn-group{
+    display:flex;
+    overflow:hidden;
+    border-radius:8px;
+    border:1px solid #E2E8F0;
+}
+
+.filter-btn-group button{
+    border:none;
+    background:white;
+    padding:7px 12px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+    color:#202224;
+}
+
+.filter-btn-group button.active{
+    background:#202224;
+    color:white;
+}
+
+/* ================= TARGET BOX ================= */
+
+.target-box-row{
+    background:#F8FAFC;
+    border:1px dashed #CBD5E1;
+    border-radius:14px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px;
+    gap:20px;
+}
+
+.target-box-item{
+    flex:1;
+    text-align:center;
+}
+
+.target-label{
+    font-size:12px;
+    color:#64748B;
+    margin-bottom:6px;
+}
+
+.target-value{
+    font-size:20px;
+    font-weight:800;
+}
+
+/* ================= OVERVIEW ================= */
+
+.overview-flex{
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    flex-wrap:wrap;
+    gap:20px;
+}
+
+.overview-details{
+    flex:1;
+}
+
+.overview-item{
+    margin-bottom:20px;
+}
+
+.overview-item h4{
+    font-size:20px;
+    font-weight:800;
+    color:#202224;
+    margin-bottom:4px;
+}
+
+.overview-item p{
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+.percent-badge{
+    display:inline-block;
+    padding:6px 12px;
+    border-radius:8px;
+    font-size:11px;
+    font-weight:700;
+    color:white;
+    background:#00B69B;
+}
+
+/* ================= CHART ================= */
+
+.chart-large{
+    height:200px;
+    margin-bottom:20px;
+}
+
+canvas{
+    width:100% !important;
+    max-height:300px;
+}
+
+/* ================= SHOW MORE ================= */
+
+.extra-row{
+    display:none;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1200px){
+
+    .main-dashboard-layout{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:1024px){
+
+    .summary-grid{
+        grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    }
+
+    .table thead th,
+    .table tbody td,
+    .admin-data-table th,
+    .admin-data-table td{
+        font-size:12px;
+        padding:6px 4px;
+    }
+}
+
+@media(max-width:768px){
+
+    .top-widgets-grid{
+        grid-template-columns:1fr;
+    }
+
+    .dashboard-admin-wrapper{
+        padding:18px;
+    }
+
+    .target-box-row{
+        flex-direction:column;
+    }
+
+    .summary-grid{
+        grid-template-columns:1fr;
+    }
+}

@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Category extends Model
+{
+    use HasFactory;
+
+    // TAMBAHKAN 'status' DI SINI
+    protected $fillable = ['name', 'status']; 
+
+    public function stocks()
+    {
+        return $this->hasMany(\App\Models\Stock::class, 'category_id', 'id');
+    }
+}

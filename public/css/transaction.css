@@ -1,0 +1,181 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+    font-family: Inter, sans-serif;
+}
+
+body {
+    background: #f5f5f5;
+}
+
+/* HEADER */
+.transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.transaction-header h2 {
+    margin: 0;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.transaction-header .date {
+    font-size: 12px;
+    color: #777;
+}
+
+/* BUTTON */
+.btn-download {
+    background: #3b2417;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px 13px;
+    font-size: 12px;
+    margin-left: 8px;
+    cursor: pointer;
+}
+
+/* SUMMARY */
+.summary-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 20px;
+}
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1.2fr 1fr 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+}
+
+.summary-item h3 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.summary-item p {
+    margin: 4px 0;
+    font-size: 12px;
+    color: #777;
+}
+
+.growth {
+    font-size: 11px;
+    color: #22c55e;
+}
+
+/* SEARCH */
+.search-input {
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding-left: 36px;
+    font-size: 13px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23999' viewBox='0 0 24 24'%3E%3Cpath d='M10 2a8 8 0 105.293 14.293l4.707 4.707 1.414-1.414-4.707-4.707A8 8 0 0010 2z'/%3E%3C/svg%3E") no-repeat 12px center;
+    background-size: 16px;
+}
+
+/* FILTER */
+.filter-select {
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 0 12px;
+    font-size: 13px;
+}
+
+/* TABLE */
+.table-wrapper {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.transaction-table thead {
+    background: #f3f3f3;
+}
+
+.transaction-table th {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 13px;
+    text-align: center;
+}
+
+.transaction-table td {
+    padding: 13px;
+    border-bottom: 1px solid #eee;
+    font-size: 13px;
+    text-align: center;
+}
+
+/* BADGE */
+.badge {
+    padding: 5px 9px;
+    font-size: 11px;
+    border-radius: 6px;
+}
+
+.waiting {
+    background: #e5e7eb;
+}
+
+.semeru {
+    background: #fde68a;
+}
+
+/* ACTION */
+.action {
+    display: flex;
+    gap: 10px;
+}
+
+.icon {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.icon.delete {
+    background: red;
+    border-radius: 3px;
+}
+
+.icon.view {
+    border: 2px solid #000;
+    border-radius: 50%;
+}
+
+/* transaction.css */
+
+/* Container untuk tombol */
+td .action-icons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Ukuran ikon */
+td .action-icons img.icon-btn {
+    width: 17px;
+    height: 17px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+td .action-icons img.icon-btn:hover {
+    transform: scale(1.2);
+}

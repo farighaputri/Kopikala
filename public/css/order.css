@@ -1,0 +1,300 @@
+/* ================= FIXED PERFECT DESIGN MATCH ADMIN DASHBOARD MOCKUP ================= */
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* BENAR: Mengunci font utama dashboard admin Kopikala agar rapi sesuai mockup */
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background: #F5F6FA; /* BENAR: Warna dasar abu-abu bersih sesuai mockup dashboard */
+    color: #202224; /* BENAR: Warna teks utama gelap pekat admin */
+}
+
+/* TOPBAR */
+.topbar {
+    height: 60px;
+    background: #3c1f0e; /* BENAR: Disinkronkan ke warna cokelat khas utama Kopikala */
+    color: #fff;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+}
+
+.avatar {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* LAYOUT CONTAINER */
+.wrapper {
+    display: flex;
+    padding: 30px; /* BENAR: Padding diperluas agar tatanan card tidak terlalu mepet ke layar */
+    gap: 24px;
+}
+
+/* LEFT MENU */
+.menu {
+    flex: 3;
+}
+
+.menu h2 {
+    font-size: 26px; /* BENAR: Diperbesar agar tegas sesuai welcome title admin */
+    font-weight: 700;
+    color: #202224;
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    color: #565656;
+    font-size: 14px;
+    margin-bottom: 30px;
+    max-width: 600px;
+}
+
+/* GRID MENU */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* BENAR: Diperlebar skala minimalnya agar pas */
+    gap: 20px;
+}
+
+/* CARD ITEM */
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01); /* BENAR: Soft shadow mengikuti style mockup */
+    border: 1px solid #E9E9E9;
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.04);
+}
+
+/* MENU IMAGE FIXED (BENAR: FOTO PENUH, ANTI TERPOTONG, TANPA BACKGROUND ABU-ABU) */
+.menu-img {
+    width: 100%;
+    height: 145px; /* BENAR: Skala tinggi disesuaikan proporsional card */
+    object-fit: cover; /* KUNCI: Foto produk penuh menutupi area gambar tanpa gepeng/terpotong */
+    border-radius: 10px;
+    margin-bottom: 12px;
+    background: transparent; /* BENAR: Hapus abu-abu pengotor sisa gambar contain */
+}
+
+.card h4 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #202224;
+    margin-bottom: 6px;
+}
+
+.card small {
+    color: #565656;
+    font-size: 12px;
+    display: block;
+}
+
+/* PRICE SECTOR */
+.price {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.price span {
+    font-weight: 700;
+    font-size: 15px;
+    color: #202224;
+}
+
+.price button {
+    background: #3c1f0e; /* BENAR: Samakan warna ke cokelat identitas kala */
+    color: #ffffff;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease;
+}
+
+.price button:hover {
+    background: #2b1509;
+}
+
+/* RIGHT ORDER SIDEBAR */
+.order {
+    flex: 2;
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.01);
+    border: 1px solid #E9E9E9;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+}
+
+/* ORDER HEADER */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #E9E9E9;
+    padding-bottom: 12px;
+}
+
+.order-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #202224;
+}
+
+.clear {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e74c3c;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* FORM INPUTS */
+.section-title {
+    margin: 20px 0 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #202224;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #565656;
+    display: block;
+    margin-bottom: 4px;
+}
+
+input {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #CBD5E1;
+    background: #F8FAFC;
+    margin-bottom: 14px;
+    color: #202224;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+input:focus {
+    border-color: #3c1f0e;
+    background: #ffffff;
+}
+
+/* ORDER ITEM LIST */
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #F1F5F9;
+    font-size: 14px;
+    color: #202224;
+}
+
+.order-item > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.order-item h5 {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.order-item small {
+    color: #565656;
+    font-size: 11px;
+    margin-top: 2px;
+}
+
+.order-item .item-total-price {
+    font-weight: 700;
+    color: #202224;
+}
+
+/* SUMMARY PAYMENT SECTOR */
+.summary {
+    border-top: 1px dashed #CBD5E1;
+    padding-top: 16px;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.summary div {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #565656;
+}
+
+.total {
+    font-weight: 800 !important;
+    font-size: 18px;
+    color: #202224 !important;
+    margin-top: 4px;
+}
+
+/* PAY BUTTON COKELAT PEKAT BANNER STYLE */
+.pay {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    background: #3c1f0e; /* BENAR: Ubah hitam pekat ke cokelat identitas Kopikala */
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(60, 31, 14, 0.15);
+    transition: background 0.2s ease;
+}
+
+.pay:hover {
+    background: #2b1509;
+}
+
+/* RESPONSIVE LAYOUT BREAKPOINT */
+@media (max-width: 900px) {
+    .wrapper {
+        flex-direction: column;
+        padding: 15px;
+    }
+    .order {
+        max-height: unset;
+    }
+}

@@ -1,0 +1,396 @@
+/* ================= GLOBAL & FONT ================= */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    color: #3b1f0a;
+    background: #f4ecdf url("/media/BG JAM.png") repeat top center;
+    background-size: 1500px auto;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: rgba(244,236,223,0.88);
+    z-index: -1;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+/* ================= HEADER & FOOTER (Sudah ada di CSS Anda) ================= */
+/* (Pastikan CSS Header dan Footer Anda yang lama tetap diletakkan di bawah sini) */
+/* ================= HEADER DIPERBAIKI ================= */
+/* ================= HEADER ================= */
+
+.topbar{
+    display:flex;
+    align-items:center;
+    padding:14px 40px;
+    border-bottom:1px solid #d8cabd;
+}
+
+.logo{
+    width:170px;
+    margin-right:auto;
+}
+
+.nav-menu{
+    display:flex;
+    gap:35px;
+    font-size:15px;
+    align-items:center;
+}
+
+.nav-menu a{
+    color:#2f180d;
+}
+
+.profile-icon{
+    font-size:26px;
+    color:#2f180d;
+    margin-left:25px;
+}
+.profile-icon:hover {
+    color: #8A6A57;
+    transform: scale(1.1);
+}
+
+
+/* ================= PROFIL PAGE CONTENT ================= */
+.profile-main-container {
+    max-width: 900px;
+    margin: 120px auto 100px auto; /* Margin top agar tidak tertutup header sticky */
+    padding: 0 20px;
+}
+
+.title-profil {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 54px;
+    margin-bottom: 30px;
+    color: #4A210B;
+}
+
+.profile-card {
+    background: #FFFFFF;
+    padding: 50px;
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.header-section { display: flex; align-items: center; gap: 25px; margin-bottom: 45px; }
+.avatar-wrapper { position: relative; width: 110px; height: 110px; }
+.avatar { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.edit-icon { 
+    position: absolute; bottom: 5px; right: 0; 
+    background: #F3EDE2; border-radius: 50%; 
+    padding: 8px; font-size: 14px; border: 2px solid white;
+}
+
+.user-info h2 { font-family: 'Patrick Hand', cursive; font-size: 32px; margin: 0; }
+.user-info p { color: #8A6A57; margin-top: 5px; font-size: 16px; }
+
+/* INPUT */
+.form-group { 
+    display: flex; align-items: baseline; 
+    margin-bottom: 35px; border-bottom: 1px solid #DCD0C4; 
+    padding-bottom: 15px; 
+}
+.form-group label { width: 250px; font-size: 18px; font-weight: 500; }
+.form-group input { 
+    flex: 1; border: none; font-size: 18px; 
+    background: transparent; color: #4A210B; font-weight: 600;
+}
+
+/* BUTTONS */
+.btn-group { display: flex; justify-content: flex-end; gap: 15px; margin-top: 40px; }
+.btn { 
+    padding: 12px 35px; border-radius: 20px; border: none; 
+    font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s;
+}
+.btn-batal{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    padding: 12px 35px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: #d8cabd;
+    color: #3b1f0a;
+    transition: 0.3s;
+}
+
+.btn-batal:hover{
+    opacity: 0.8;
+
+}
+.btn-simpan { background: #3B1604; color: #FFF8F0; }
+.btn:hover { opacity: 0.8; }
+/* ================= FOOTER ================= */
+
+footer{
+    background-color:#3c1f0e;
+    color:#fff8f0;
+
+    padding:70px 60px 0;
+
+    position:relative;
+    overflow:hidden;
+}
+
+/* CONTAINER */
+.footer-container{
+    max-width:1200px;
+    margin:0 auto;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:50px;
+
+    position:relative;
+    z-index:5;
+}
+
+/* ================= LEFT ================= */
+
+.footer-left{
+    flex:1;
+}
+
+.footer-left img{
+    width:180px;
+    height:auto;
+}
+
+.footer-left p{
+    margin-top:10px;
+
+    font-size:1.05rem;
+    color:#f8e6cc;
+
+    max-width:280px;
+    line-height:1.6;
+}
+
+/* ================= CENTER ================= */
+
+.footer-center{
+    flex:10;
+    text-align:center;
+    margin-top: -20px;
+}
+
+.footer-center h3{
+    margin-bottom:16px;
+    font-size:1.4rem;
+    
+}
+
+.footer-center ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.footer-center li{
+    margin-bottom:10px;
+}
+
+.footer-center a{
+    color:#fff8f0;
+    font-size:1.05rem;
+    transition:.3s;
+}
+
+.footer-center a:hover{
+    color:#f1c27d;
+}
+
+footer {
+    margin-top: 90px;
+    background: #3b1604;
+    color: white;
+    padding-top: 30px;
+    padding-bottom: 25px;
+}
+
+.footer-container {
+    max-width: var(--container);
+    margin: 0 auto;
+
+    padding: 0 45px;
+
+    display: flex;
+    justify-content: space-between;
+
+    align-items: flex-start; 
+}
+
+.footer-left img {
+    width: 190px; /* kecilin logo */
+
+}
+
+.footer-left p {
+    margin-top: 6px;
+    font-size: 15px;
+    white-space:nowrap; /* biar ga turun */
+}
+
+.footer-title {
+    font-size: 18px; /* kecilin title */
+    margin-bottom: 10px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 12px;
+}
+
+/* ================= FOOTER RIGHT ================= */
+
+.footer-right{
+    flex:1;
+
+    display:flex;
+    flex-direction:column;
+
+    align-items:flex-end; /* pojok kanan */
+    text-align:right;
+}
+
+/* Judul */
+.footer-right h3{
+    margin:0 0 14px;
+
+    font-size:1.2rem;
+    color:#fff8f0;
+
+    white-space:nowrap; /* biar ga turun */
+}
+
+/* ================= SOCIAL ICONS ================= */
+
+.social-icons{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+
+    gap:14px;
+}
+
+/* Link */
+.social-icons a{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* Icon */
+.social-icons img{
+    width:34px;
+    height:34px;
+
+    object-fit:contain;
+
+    transition:0.3s ease;
+}
+
+/* Hover */
+.social-icons img:hover{
+    transform:scale(1.12);
+}
+/* ================= FOOTER CUPS ================= */
+.footer-cups{
+    width:100vw;
+    height:120px;
+
+    position:relative;
+
+    display:flex;
+    justify-content:space-evenly;
+    align-items:flex-end;
+
+    padding:0 10px;
+
+    left:50%;
+    right:50%;
+    margin-left:-50vw;
+    margin-right:-50vw;
+
+    overflow:visible;
+
+    /* background utama footer */
+    background:transparent;
+}
+
+/* COKLAT MUDA DI TENGAH */
+.footer-cups::before{
+    content:'';
+
+    position:absolute;
+
+    left:0;
+    top:100%;
+
+    transform:translateY(-50%);
+
+    width:100%;
+    height:90px;
+
+    background:#8b6345;
+
+    z-index:1;
+}
+
+/* CUP */
+.footer-cups img{
+    position:relative;
+    z-index:3;
+
+    width:auto;
+    height:110px;
+
+    object-fit:contain;
+    display:block;
+
+    flex-shrink:0;
+}
+
+/* POSISI CUP BEBAS */
+.footer-cups img:nth-child(1){ transform:translateY(-10px); }
+.footer-cups img:nth-child(2){ transform:translateY(8px); }
+.footer-cups img:nth-child(3){ transform:translateY(-6px); }
+.footer-cups img:nth-child(4){ transform:translateY(5px); }
+.footer-cups img:nth-child(5){ transform:translateY(-10px); }
+.footer-cups img:nth-child(6){ transform:translateY(8px); }
+.footer-cups img:nth-child(7){ transform:translateY(-6px); }
+.footer-cups img:nth-child(8){ transform:translateY(5px); }
+.footer-cups img:nth-child(9){ transform:translateY(-10px); }
+.footer-cups img:nth-child(10){ transform:translateY(8px); }
+.footer-cups img:nth-child(11){ transform:translateY(-6px); }
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+    .form-group { flex-direction: column; }
+    .form-group label { margin-bottom: 10px; }
+    .profile-card { padding: 30px; }
+}

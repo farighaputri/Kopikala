@@ -1,0 +1,126 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* BACKGROUND WRAPPER */
+.login-bg {
+    min-height: 100vh;
+    width: 100%;
+    background:
+        linear-gradient(
+            rgba(60, 32, 15, 0.85),
+            rgba(40, 20, 8, 0.85)
+        ),
+        url("../img/bg-kopi.png");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* LOGIN CARD */
+.login-card {
+    background: #ffffff;
+    border-radius: 22px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+    padding: 40px 36px;
+    width: 100%;
+    max-width: 420px;
+}
+
+/* TITLE */
+.login-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: #2f2f2f;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.login-subtitle {
+    font-size: 13px;
+    color: #9a9a9a;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* LABEL */
+.login-label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 6px;
+    display: block;
+}
+
+/* INPUT */
+.login-input {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e6e9ee;
+    background-color: #f4f6f9;
+    font-size: 14px;
+}
+
+.login-input:focus {
+    outline: none;
+    background-color: #fff;
+    border-color: #4b2e1a;
+    box-shadow: 0 0 0 3px rgba(75, 46, 26, 0.15);
+}
+
+/* PASSWORD ROW */
+.password-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.forgot-password {
+    font-size: 12px;
+    color: #9a9a9a;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    color: #4b2e1a;
+}
+
+/* BUTTON */
+.login-button {
+    width: 100%;
+    margin-top: 12px;
+    background: #4b2e1a;
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    padding: 13px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background: #3f2615;
+    box-shadow: 0 10px 24px rgba(75, 46, 26, 0.35);
+}
+
+/* ERROR */
+.error-box {
+    background: #fff1f1;
+    color: #c53030;
+    font-size: 13px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}

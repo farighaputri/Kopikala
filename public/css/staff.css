@@ -1,0 +1,362 @@
+/* =========================================================
+   PAGE
+========================================================= */
+
+.staff-page {
+    padding: 24px;
+    background: #f8f8f8;
+    min-height: 100vh;
+}
+
+.page-title {
+    font-size: 42px;
+    font-weight: 700;
+    color: #2d1405;
+    margin-bottom: 24px;
+}
+
+/* =========================================================
+   STATISTIC
+========================================================= */
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.stat-card {
+    background: #fff;
+    border: 1px solid #e9e9e9;
+    border-radius: 18px;
+    padding: 26px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 120px;
+}
+
+.stat-left h2 {
+    font-size: 42px;
+    font-weight: 700;
+    color: #2d1405;
+    margin: 0 0 4px;
+}
+
+.stat-left p {
+    color: #777;
+    font-size: 15px;
+}
+
+.stat-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stat-icon i {
+    font-size: 28px;
+}
+
+.stat-icon.brown {
+    color: #4b2207;
+}
+
+.stat-icon.green {
+    color: #2d7d14;
+}
+
+.stat-icon.red {
+    color: #8f1111;
+}
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.filter-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e6e6e6;
+    padding: 22px;
+    margin-bottom: 22px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr auto auto;
+    gap: 16px;
+    align-items: end;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.filter-group input,
+.filter-group select {
+    width: 100%;
+    height: 48px;
+    border: 1px solid #dcdcdc;
+    border-radius: 12px;
+    padding: 0 16px;
+    font-size: 14px;
+    background: white;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-box i {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    color: #666;
+}
+
+.filter-btn {
+    height: 48px;
+    border: none;
+    border-radius: 12px;
+    padding: 0 20px;
+    background: #e7e7e7;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.add-btn {
+    height: 48px;
+    padding: 0 22px;
+    background: #4b2207;
+    color: white;
+    border-radius: 12px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.table-card {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
+}
+
+.table-custom {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-custom thead {
+    background: #fafafa;
+}
+
+.table-custom th {
+    padding: 18px;
+    text-align: left;
+    font-size: 14px;
+    color: #4b2207;
+    font-weight: 700;
+    border-bottom: 1px solid #ececec;
+}
+
+.table-custom td {
+    padding: 18px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+    color: #444;
+}
+
+.table-custom tbody tr:hover {
+    background: #fafafa;
+}
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.badge {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-block;
+}
+
+/* =========================
+   ROLE BADGE
+========================= */
+
+.role-badge {
+    padding: 7px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+/* MASTER ADMIN */
+.role-badge-master {
+    background: #d9f7f2;
+    color: #16a394;
+}
+
+/* HEAD STORE DJUANDA */
+.role-badge-head-store-djuanda {
+    background: #e5e4ff;
+    color: #5b5bd6;
+}
+
+/* HEAD STORE SEMERU */
+.role-badge-head-store-semeru {
+    background: #efe7ff;
+    color: #7a42d8;
+}
+
+/* FINANCE MANAGER */
+.role-badge-finance-manager {
+    background: #dfe7ff;
+    color: #4b67d1;
+}
+
+/* HRD */
+.role-badge-hrd {
+    background: #fff1dc;
+    color: #f39b22;
+}
+
+/* OPERATIONAL MANAGER */
+.role-badge-operational-manager {
+    background: #eadcff;
+    color: #7c3fc7;
+}
+
+/* OPERATIONAL STAFF */
+.role-badge-operational-staff {
+    background: #f0e6ff;
+    color: #8b5cf6;
+}
+
+/* SECRETARY */
+.role-badge-secretary {
+    background: #d9f5ff;
+    color: #23a8db;
+}
+
+/* KASIR */
+.role-badge-kasir {
+    background: #b95509;
+    color: #fff;
+}
+
+/* CLEANING STAFF */
+.role-badge-cleaning-staff {
+    background: #f2d6ff;
+    color: #c54eff;
+}
+
+/* DEFAULT */
+.role-badge-default {
+    background: #f1f1f1;
+    color: #666;
+}
+
+.branch-badge {
+    background: #fbe0e0;
+    color: #c25454;
+}
+
+.badge-active {
+    background: #dcf7ef;
+    color: #17a572;
+}
+
+.badge-disable {
+    background: #ffe5e5;
+    color: #dc2626;
+}
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+.action-icons {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.action-icons a,
+.action-icons button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.action-icons .fa-trash {
+    color: #ff3b3b;
+}
+
+.action-icons .fa-pen {
+    color: #111;
+}
+
+.action-icons .fa-eye {
+    color: #111;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty-data {
+    text-align: center;
+    padding: 40px !important;
+    color: #999;
+}
+ 
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+    .filter-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .stat-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .table-card {
+        overflow-x: auto;
+    }
+ 
+}

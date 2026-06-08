@@ -1,0 +1,187 @@
+/* ===========================
+   TRANSACTION DETAIL PAGE
+=========================== */
+/* ===============================
+   SIDEBAR FIXED
+=============================== */
+
+.transaction-detail-wrapper {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 24px;
+    margin-top: 20px;
+}
+
+/* CARD */
+.detail-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.05);
+}
+
+/* SECTION TITLE */
+.detail-card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #111827;
+}
+
+/* FORM GROUP */
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group label {
+    font-size: 12px;
+    color: #6b7280;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.form-control {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    padding: 10px 12px;
+    font-size: 13px;
+    background: #f9fafb;
+}
+
+.form-control:disabled {
+    background: #f9fafb;
+    color: #111827;
+}
+
+/* STATUS BADGE */
+.status-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-waiting {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.status-confirmed {
+    background: #e0f2fe;
+    color: #0369a1;
+}
+
+.status-ready {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-finished {
+    background: #ecfdf5;
+    color: #047857;
+}
+
+/* LOCATION BADGE */
+.location-badge {
+    background: #fde68a;
+    color: #92400e;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 8px;
+    display: inline-block;
+}
+
+/* ===========================
+   ORDER ITEM (RIGHT SIDE)
+=========================== */
+
+.order-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    border-radius: 10px;
+    background: #f9fafb;
+    margin-bottom: 12px;
+}
+
+.order-item img {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.order-item-info {
+    flex: 1;
+}
+
+.order-item-info h5 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.order-item-info span {
+    font-size: 11px;
+    color: #6b7280;
+}
+
+.order-item-price {
+    font-size: 13px;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* ===========================
+   BUTTON AREA
+=========================== */
+
+.detail-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.btn-cancel {
+    background: #dc2626;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-confirm {
+    background: #3b1f0f;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-cancel:hover {
+    background: #b91c1c;
+}
+
+.btn-confirm:hover {
+    background: #2a1409;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+@media (max-width: 992px) {
+    .transaction-detail-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
