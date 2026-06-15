@@ -77,23 +77,30 @@ const AUTH_USER = @json(auth()->user());
 
     <h2>#sobatkala, mau minum apa hari ini?</h2>
 
-    <p>Pilih minuman kopi atau non kopi dan kustomisasi sesukamu</p>
+    <p>Pilih minuman kopi atau non kopi dan kustomisasi sesukamu sebelum datang mengambilnya di lokasi kami!</p>
 
-    <div class="pickup-box">
 
+{{-- Container memanjang penuh dari ujung ke ujung --}}
+<div class="pickup-container" style="display: flex; align-items: center; justify-content: space-between; gap: 20px; width: 100%; margin-top: 25px; box-sizing: border-box;">
+
+    <div class="pickup-box" style="flex: 1; margin: 0; text-align: left; box-sizing: border-box;">
         <div>
             <small>Pesananmu dapat diambil di</small>
-
-            <div class="pickup-location">
-                📍 {{ $branch->branch_name ?? 'Kopikala Coffee Shop' }}
+            <div class="pickup-location" style="display: flex; align-items: center; gap: 8px; margin-top: 4px;">
+                {{-- FIX ICON: Menggunakan Icon Lokasi Google Style Font Awesome --}}
+                <i class="fa-solid fa-location-dot" style="color: #fff; font-size: 16px;"></i>
+                <span>{{ $branch->branch_name ?? 'Kopikala Coffee Shop' }}</span>
             </div>
         </div>
-
-        <a href="{{ route('orders.my') }}">
-            <button class="pickup-btn">Pesanan Saya</button>
-        </a>
-
     </div>
+
+    <a href="{{ route('orders.my') }}" style="text-decoration: none;">
+        <button class="pickup-btn" style="margin: 0; white-space: nowrap; height: 100%; min-height: 56px; display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; padding: 0 35px;">
+            Pesanan Saya
+        </button>
+    </a>
+
+</div>
 </section>
 
 <section class="grid">

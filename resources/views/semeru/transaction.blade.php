@@ -8,25 +8,62 @@
     <span class="date">Date: <strong>{{ now()->format('d/m/Y') }}</strong></span>
 </div>
 
+{{-- SUMMARY --}}
 <div class="summary-box">
     <div class="summary-grid">
+
         <div class="summary-item">
             <h3>{{ $transactions->count() }}</h3>
             <p>Total Orders</p>
         </div>
+
         <div class="summary-item">
             <h3>Rp {{ number_format($transactions->sum('total')) }}</h3>
             <p>Total Sales</p>
         </div>
-        <input id="searchInput" placeholder="Search Order ID..." class="search-input" />
-        <select id="statusFilter" class="filter-select">
-            <option value="">Filter Status</option>
-            <option value="Waiting Confirmation">Waiting Confirmation</option>
-            <option value="Order Confirmed">Order Confirmed</option>
-            <option value="Order Ready">Order Ready</option>
-            <option value="Order Finished">Order Finished</option>
-        </select>
+
     </div>
+</div>
+
+{{-- FILTER --}}
+<div class="filter-card">
+
+    <div class="filter-grid">
+
+        <div class="filter-group">
+            <label>Search Order ID</label>
+            <input type="text"
+                   id="searchInput"
+                   placeholder="Enter Order ID...">
+        </div>
+
+        <div class="filter-group">
+            <label>Transaction Status</label>
+            <select id="statusFilter">
+
+                <option value="">All Status</option>
+
+                <option value="Waiting Confirmation">
+                    Waiting Confirmation
+                </option>
+
+                <option value="Order Confirmed">
+                    Order Confirmed
+                </option>
+
+                <option value="Order Ready">
+                    Order Ready
+                </option>
+
+                <option value="Order Finished">
+                    Order Finished
+                </option>
+
+            </select>
+        </div>
+
+    </div>
+
 </div>
 
 <div class="table-wrapper"

@@ -125,7 +125,7 @@
         <div>
             <strong class="muted">Semeru Branch Access</strong>
 
-            @foreach(['Semeru Transaction','Semeru Staff','Semeru Stock'] as $a)
+            @foreach(['Semeru Dashboard', 'Semeru Transaction', 'Semeru Staff', 'Semeru Stock'] as $a)
             <label class="access-item">
                 <input type="checkbox" class="access-checkbox" name="access[]" value="{{ $a }}">
                 <div><strong>{{ $a }}</strong></div>
@@ -137,7 +137,7 @@
         <div>
             <strong class="muted">Djuanda Branch Access</strong>
 
-            @foreach(['Djuanda Transaction','Djuanda Staff','Djuanda Stock'] as $a)
+            @foreach(['Djuanda Dashboard', 'Djuanda Transaction', 'Djuanda Staff', 'Djuanda Stock'] as $a)
             <label class="access-item">
                 <input type="checkbox" class="access-checkbox" name="access[]" value="{{ $a }}">
                 <div><strong>{{ $a }}</strong></div>

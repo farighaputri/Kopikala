@@ -9,7 +9,7 @@
     {{-- ================= LOGO SECTION ================= --}}
     <div class="sidebar-logo" style="text-align: center; padding: 20px 10px; margin-bottom: 10px;">
         <img src="{{ asset('img/logo_kopikala.png') }}" alt="Kopikala Logo" style="max-width: 120px; height: auto; object-fit: contain;">
-        </div>
+    </div>
 
     {{-- ================= MAIN MENU ================= --}}
     <ul>
@@ -25,8 +25,9 @@
 
         @if($user->hasPermission('Kopikala Branch'))
         <li>
+            {{-- Hanya aktif jika membuka halaman Branch Index/Create/Edit Pusat --}}
             <a href="{{ route('branch.index') }}"
-               class="{{ request()->routeIs('branch.*') ? 'active' : '' }}">
+               class="{{ (request()->routeIs('branch.*') && !request()->routeIs('branch.stock')) ? 'active' : '' }}">
                 Kopikala Branch
             </a>
         </li>
@@ -119,8 +120,8 @@
 
             @if($user->hasPermission('Semeru Stock'))
             <li>
-                <a href="{{ route('branch.stock', 'semeru') }}"
-                   class="{{ request()->is('branch/semeru/stock') ? 'active' : '' }}">
+                <a href="{{ route('semeru.stock') }}"
+                   class="{{ request()->routeIs('semeru.stock*') ? 'active' : '' }}">
                     Semeru Stock
                 </a>
             </li>
@@ -165,8 +166,9 @@
 
             @if($user->hasPermission('Djuanda Stock'))
             <li>
-                <a href="{{ route('branch.stock', 'djuanda') }}"
-                   class="{{ request()->is('branch/djuanda/stock') ? 'active' : '' }}">
+                {{-- FIX TOTAL: Mengarah ke rute baru djuanda.stock dan sub-path CRUD-nya (* untuk wildcard active) --}}
+                <a href="{{ route('djuanda.stock') }}"
+                   class="{{ request()->routeIs('djuanda.stock*') ? 'active' : '' }}">
                     Djuanda Stock
                 </a>
             </li>
@@ -176,7 +178,7 @@
 
     </div>
 
-    {{-- ================= LOGOUT (FIXED: MERAH TANPA KOTAK) ================= --}}
+    {{-- ================= LOGOUT ================= --}}
     <form method="POST" action="{{ route('logout') }}" class="logout" style="margin-top: 40px; padding: 0 15px;">
         @csrf
         <button type="submit" style="background: none; border: none; color: #d8000c; font-family: inherit; font-size: 16px; font-weight: bold; cursor: pointer; padding: 5px 0; transition: color 0.3s ease; display: inline-flex; align-items: center;">

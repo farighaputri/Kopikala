@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -21,7 +22,6 @@ class ProductController extends Controller
 
         // FILTER: PRICE
         if ($request->filled('price')) {
-
             // RANGE (0-10000)
             if (str_contains($request->price, '-')) {
                 [$min, $max] = explode('-', $request->price);
@@ -68,7 +68,6 @@ class ProductController extends Controller
 
         // Upload image
         $imagePath = null;
-
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('products', 'public');
         }
@@ -82,11 +81,11 @@ class ProductController extends Controller
             'image'       => $imagePath,
         ]);
 
-        // Simpan customization
+        // Simpan customization (Disesuaikan dengan input array 'customize' dari Blade)
         if ($request->has('customize')) {
             foreach ($request->customize as $custom) {
                 if (!empty($custom['name'])) {
-
+                    // Pakai relasi asli di model Anda (customizations)
                     $customization = $product->customizations()->create([
                         'name' => $custom['name'],
                     ]);
@@ -94,6 +93,7 @@ class ProductController extends Controller
                     if (!empty($custom['types'])) {
                         foreach ($custom['types'] as $type) {
                             if (!empty($type)) {
+                                // Pakai relasi asli di model Anda (options)
                                 $customization->options()->create([
                                     'name' => $type,
                                     'price_adjustment' => 0,
@@ -124,7 +124,20 @@ class ProductController extends Controller
     ====================================================== */
     public function edit($id)
     {
+        // Tetap meload relasi database asli
         $product = Product::with('customizations.options')->findOrFail($id);
+        
+        /**
+         * TRICK AGAR BLADE TIDAK ERROR:
+         * Kita buat 'alias' property sementara pada object $product agar 
+         * variabel $product->customizes dan $customize->types di file Blade 
+         * membaca data asli dari database tanpa mengubah kode Blade Anda.
+         */
+        $product->customizes = $product->customizations;
+        foreach($product->customizes as $custom) {
+            $custom->types = $custom->options;
+        }
+
         return view('products.edit', compact('product'));
     }
 
@@ -145,8 +158,11 @@ class ProductController extends Controller
 
         // Upload image baru
         $imagePath = $product->image;
-
         if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($product->image && Storage::disk('public')->exists($product->image)) {
+                Storage::disk('public')->delete($product->image);
+            }
             $imagePath = $request->file('image')->store('products', 'public');
         }
 
@@ -159,13 +175,13 @@ class ProductController extends Controller
             'image'       => $imagePath,
         ]);
 
-        // Hapus customization lama
+        // 1. Bersihkan semua kustomisasi lama agar tidak duplikat sampah
         foreach ($product->customizations as $customization) {
             $customization->options()->delete();
         }
         $product->customizations()->delete();
 
-        // Simpan customization baru
+        // 2. Tulis ulang kustomisasi baru yang dikirim dari form Blade ('customize')
         if ($request->has('customize')) {
             foreach ($request->customize as $custom) {
                 if (!empty($custom['name'])) {
@@ -199,6 +215,11 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::with('customizations.options')->findOrFail($id);
+
+        // Hapus file fisik gambar dari storage
+        if ($product->image && Storage::disk('public')->exists($product->image)) {
+            Storage::disk('public')->delete($product->image);
+        }
 
         // Hapus customization options
         foreach ($product->customizations as $customization) {

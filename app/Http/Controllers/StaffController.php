@@ -65,11 +65,26 @@ class StaffController extends Controller
 
         $role = Role::find($request->role_id);
 
-        // STAFF ID GENERATOR (CLEAN VERSION)
-        $roleCode = strtoupper(substr($role?->name ?? 'STF', 0, 3));
-        $count = Staff::where('role_id', $request->role_id)->count() + 1;
+        
+$roleCode = strtoupper(substr($role?->name ?? 'STF', 0, 3));
+$year = date('Y');
+$prefix = $roleCode . '-' . $year . '-';
 
-        $staff_id = $roleCode . '-' . date('Y') . '-' . str_pad($count, 4, '0', STR_PAD_LEFT);
+$lastStaff = Staff::where('staff_id', 'like', $prefix . '%')
+                  ->orderBy('staff_id', 'desc')
+                  ->first();
+
+if ($lastStaff) {
+    
+    $lastNumber = intval(substr($lastStaff->staff_id, -4));
+    $count = $lastNumber + 1;
+} else {
+    
+    $count = 1;
+}
+
+
+$staff_id = $prefix . str_pad($count, 4, '0', STR_PAD_LEFT);
 
         $data = [
             'staff_id' => $staff_id,
@@ -200,4 +215,5 @@ class StaffController extends Controller
             'branchName' => ucfirst($branchName),
         ]);
     }
+    
 }

@@ -145,7 +145,6 @@ Route::middleware(['auth:staff'])->group(function () {
     // ==========================================
     // 1. PUBLIC BACKEND / PROFILE
     // ==========================================
-    // Bisa diakses oleh semua staff yang sudah login aktif
     Route::get('/admin/profile', [AdminProfileController::class, 'index'])->name('admin.profile');
     Route::put('/admin/profile/update', [AdminProfileController::class, 'update'])->name('admin.profile.update');
 
@@ -153,17 +152,14 @@ Route::middleware(['auth:staff'])->group(function () {
     // ==========================================
     // 2. DASHBOARD ACCESS (DIPISAH PER PERMISSION)
     // ==========================================
-    // Dashboard Pusat Utama
     Route::middleware(['check.permission:Main Dashboard'])->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     });
 
-    // Dashboard Cabang Semeru
     Route::middleware(['check.permission:Semeru Dashboard'])->group(function () {
         Route::get('/semeru/dashboard', [DashboardController::class, 'semeruDashboard'])->name('semeru.dashboard');
     });
 
-    // Dashboard Cabang Djuanda
     Route::middleware(['check.permission:Djuanda Dashboard'])->group(function () {
         Route::get('/djuanda/dashboard', [DashboardController::class, 'djuandaDashboard'])->name('djuanda.dashboard');
     });
@@ -202,11 +198,54 @@ Route::middleware(['auth:staff'])->group(function () {
         Route::get('/branch/{branch}/stock', [StockController::class, 'branchStock'])->name('branch.stock');
     });
 
+    // ================= FIX SEMERU STOCK (CRUD BRANCH) =================
+    // Dimasukkan ke dalam proteksi middleware Semeru Staff agar aman
+  // ================= FIX SEMERU STOCK (CRUD BRANCH) =================
+    Route::middleware(['check.permission:Semeru Staff'])->group(function () {
+        Route::prefix('semeru/stock')->group(function () {
+            Route::get('/', [StockController::class, 'semeruIndex'])->name('semeru.stock');
+            Route::get('/create', [StockController::class, 'semeruCreate'])->name('semeru.stock.create');
+            Route::post('/store', [StockController::class, 'storeSemeru'])->name('semeru.stock.store');
+            Route::get('/{id}', [StockController::class, 'semeruShow'])->name('semeru.stock.show');
+            Route::get('/{id}/edit', [StockController::class, 'semeruEdit'])->name('semeru.stock.edit');
+            Route::put('/{id}', [StockController::class, 'semeruUpdate'])->name('semeru.stock.update');
+            Route::delete('/{id}', [StockController::class, 'semeruDestroy'])->name('semeru.stock.destroy');
+        });
+    });
+
+    // ================= FIX DJUANDA STOCK (CRUD BRANCH) =================
+    // TAMBAHKAN BLOK INI DI BAWAH SEMERU STOCK:
+    Route::middleware(['check.permission:Djuanda Staff'])->group(function () {
+        Route::prefix('djuanda/stock')->group(function () {
+            
+            // Rute Index Djuanda
+            Route::get('/', [StockController::class, 'djuandaIndex'])
+                ->name('djuanda.stock');
+
+            // Rute CRUD Djuanda
+            Route::get('/create', [StockController::class, 'djuandaCreate'])
+                ->name('djuanda.stock.create');
+
+            Route::post('/store', [StockController::class, 'storeDjuanda'])
+                ->name('djuanda.stock.store');
+
+            Route::get('/{id}', [StockController::class, 'djuandaShow'])
+                ->name('djuanda.stock.show');
+
+            Route::get('/{id}/edit', [StockController::class, 'djuandaEdit'])
+                ->name('djuanda.stock.edit');
+
+            Route::put('/{id}', [StockController::class, 'djuandaUpdate'])
+                ->name('djuanda.stock.update');
+
+            Route::delete('/{id}', [StockController::class, 'djuandaDestroy'])
+                ->name('djuanda.stock.destroy');
+        });
+    });
 
     // ==========================================
     // 6. TRANSACTIONS MANAGEMENT (DIPISAH KASIR CABANG)
     // ==========================================
-    // Transaksi Utama Pusat & Fitur Ekspor Laporan Keuangan
     Route::middleware(['check.permission:Main Transaction'])->group(function () {
         Route::resource('transactions', TransactionController::class);
         Route::get('/transactions/{id}', [TransactionController::class, 'show'])->name('transactions.detail');
@@ -215,12 +254,10 @@ Route::middleware(['auth:staff'])->group(function () {
         Route::get('/transactions/export/pdf', [TransactionController::class, 'exportPdf'])->name('transactions.export.pdf');
     });
 
-    // Khusus Kasir / Monitor Transaksi Semeru
     Route::middleware(['check.permission:Semeru Transaction'])->group(function () {
         Route::get('/semeru/transaction', [TransactionController::class, 'semeruTransactions'])->name('semeru.transaction');
     });
 
-    // Khusus Kasir / Monitor Transaksi Djuanda
     Route::middleware(['check.permission:Djuanda Transaction'])->group(function () {
         Route::get('/djuanda/transaction', [TransactionController::class, 'djuandaTransactions'])->name('djuanda.transaction');
     });
@@ -229,17 +266,14 @@ Route::middleware(['auth:staff'])->group(function () {
     // ==========================================
     // 7. STAFF MANAGEMENT (DIPISAH PER OPERASIONAL)
     // ==========================================
-    // Manajemen Staff Pusat (CRUD Lengkap)
     Route::middleware(['check.permission:Staff'])->group(function () {
         Route::resource('staff', StaffController::class);
     });
 
-    // Monitoring Staff Cabang Semeru
     Route::middleware(['check.permission:Semeru Staff'])->group(function () {
         Route::get('/semeru/staff', [StaffController::class, 'semeru'])->name('semeru.staff');
     });
 
-    // Monitoring Staff Cabang Djuanda
     Route::middleware(['check.permission:Djuanda Staff'])->group(function () {
         Route::get('/djuanda/staff', [StaffController::class, 'djuanda'])->name('djuanda.staff');
     });
@@ -253,6 +287,7 @@ Route::middleware(['auth:staff'])->group(function () {
     });
 
 });
+
 /*
 |--------------------------------------------------------------------------
 | LOGOUT ADMIN

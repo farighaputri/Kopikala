@@ -3,9 +3,12 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('css/staff.css') }}">
 
-<div class="page-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+<div class="page-header">
     <h2 class="page-title">Staff</h2>
-    <a href="{{ route('staff.create') }}" class="add-btn" style="padding:6px 10px; background:#3490dc; color:#fff; border-radius:4px; text-decoration:none;">+ Add New Staff</a>
+
+    <a href="{{ route('staff.create') }}" class="add-btn">
+        + Add New Staff
+    </a>
 </div>
 
 {{-- STATISTIC --}}
@@ -27,8 +30,8 @@
 </div>
 
 {{-- FILTER --}}
-<div class="filter-card" style="margin-bottom:16px;">
-    <form method="GET" class="filter-grid" style="display:flex; gap:12px; flex-wrap:wrap; align-items:end;">
+<div class="filter-card">
+    <form method="GET" class="filter-grid">
         <div>
             <label>Search Staff</label>
             <input type="text" name="search" placeholder="Enter name" value="{{ request('search') }}">
@@ -68,8 +71,10 @@
         </div>
 
         <div>
-            <button type="submit" style="padding:6px 12px; background:#3490dc; color:#fff; border:none; border-radius:4px;">Filter</button>
-        </div>
+    <button type="submit" class="add-btn">
+        Filter
+    </button>
+</div>
     </form>
 </div>
 

@@ -5,64 +5,79 @@
 {{-- HEADER --}}
 <div class="page-header">
     <h2 class="page-title">Products</h2>
-    <a href="{{ route('products.create') }}" class="add-btn">+ Add New Product</a>
-</div>
-
-{{-- FILTER BAR --}}
-<div class="filter-wrapper">
-    <div class="filter-pill dropdown" onclick="toggleFilterMenu()">
-        <span class="filter-icon">⚲</span>
-        <span id="filterLabel">Filter</span>
-        <span class="arrow">▾</span>
-    </div>
-
-    <a href="{{ route('products.index') }}" class="filter-reset">
-        ⟳ Reset Filter
+    <a href="{{ route('products.create') }}" class="add-btn">
+        + Add New Product
     </a>
 </div>
 
-{{-- FILTER MENU --}}
-<div id="filterMenu" class="filter-menu">
-    <div onclick="selectFilter('price','Price')">Price</div>
-    <div onclick="selectFilter('status','Status')">Status</div>
-    <div onclick="selectFilter('name','Product Name')">Product Name</div>
-</div>
+{{-- FILTER --}}
+<div class="filter-card">
 
-<form method="GET" action="{{ route('products.index') }}">
-    <div id="filterPanel" class="filter-panel">
+    <form method="GET" action="{{ route('products.index') }}" class="filter-grid">
 
-        {{-- PRICE --}}
-        <div class="filter-box filter-field" data-filter="price">
-            <label>Price</label>
+        <div class="filter-group">
+            <label>Product Name</label>
+            <input type="text"
+                   name="name"
+                   placeholder="Search product..."
+                   value="{{ request('name') }}">
+        </div>
+
+        <div class="filter-group">
+            <label>Price Range</label>
             <select name="price">
                 <option value="">All Price</option>
-                <option value="0-10000">0 - 10.000</option>
-                <option value="10000-50000">10.000 - 50.000</option>
-                <option value="50000+">> 50.000</option>
+
+                <option value="0-10000"
+                    {{ request('price') == '0-10000' ? 'selected' : '' }}>
+                    0 - 10.000
+                </option>
+
+                <option value="10000-50000"
+                    {{ request('price') == '10000-50000' ? 'selected' : '' }}>
+                    10.000 - 50.000
+                </option>
+
+                <option value="50000+"
+                    {{ request('price') == '50000+' ? 'selected' : '' }}>
+                    > 50.000
+                </option>
             </select>
         </div>
 
-        {{-- STATUS --}}
-        <div class="filter-box filter-field" data-filter="status">
+        <div class="filter-group">
             <label>Status</label>
             <select name="status">
                 <option value="">All Status</option>
-                <option value="1">Active</option>
-                <option value="0">Inactive</option>
+
+                <option value="1"
+                    {{ request('status') == '1' ? 'selected' : '' }}>
+                    Active
+                </option>
+
+                <option value="0"
+                    {{ request('status') == '0' ? 'selected' : '' }}>
+                    Inactive
+                </option>
             </select>
         </div>
 
-        {{-- NAME --}}
-        <div class="filter-box filter-field" data-filter="name">
-            <label>Product Name</label>
-            <input type="text" name="name" placeholder="Search name...">
+        <div class="filter-action">
+
+            <button type="submit" class="add-btn filter-submit">
+                Filter
+            </button>
+
+            <a href="{{ route('products.index') }}" class="add-btn">
+                Reset
+            </a>
+
         </div>
 
-        <button type="submit" class="add-btn">
-            Apply Filter
-        </button>
-    </div>
-</form>
+    </form>
+
+</div>
+
 {{-- TABLE --}}
 <div class="card"
      style="
@@ -80,60 +95,48 @@
            ">
 
         <thead>
-
             <tr>
-
-                <th style="padding:15px; text-align:center;">No</th>
-
-                <th style="padding:15px; text-align:center;">Products Name</th>
-
-                <th style="padding:15px; text-align:center;">Image</th>
-
-                <th style="padding:15px; text-align:center;">Price</th>
-
-                <th style="padding:15px; text-align:center;">Status</th>
-
-                <th style="padding:15px; text-align:center;">Action</th>
-
+                <th style="padding:15px;">No</th>
+                <th style="padding:15px;">Product Name</th>
+                <th style="padding:15px;">Image</th>
+                <th style="padding:15px;">Price</th>
+                <th style="padding:15px;">Status</th>
+                <th style="padding:15px;">Action</th>
             </tr>
-
         </thead>
 
         <tbody>
 
-            @forelse($products as $i => $product)
+        @forelse($products as $i => $product)
 
             <tr>
 
-                <td style="padding:15px; text-align:center;">
+                <td style="padding:15px;">
                     {{ $i + 1 }}
                 </td>
 
-                <td style="padding:15px; text-align:center;">
+                <td style="padding:15px;">
                     {{ $product->name }}
                 </td>
 
-                <td style="padding:15px; text-align:center;">
+                <td style="padding:15px;">
 
                     @if($product->image)
-
-                        <img src="{{ asset('storage/'.$product->image) }}"
+                        <img src="{{ asset('storage/' . $product->image) }}"
                              width="40"
+                             alt="{{ $product->name }}"
                              style="border-radius:6px;">
-
                     @else
-
                         -
-
                     @endif
 
                 </td>
 
-                <td style="padding:15px; text-align:center;">
+                <td style="padding:15px;">
                     Rp {{ number_format($product->price, 0, ',', '.') }}
                 </td>
 
-                <td style="padding:15px; text-align:center;">
+                <td style="padding:15px;">
 
                     <span class="badge {{ $product->status == 1 ? 'success' : 'danger' }}">
                         {{ $product->status == 1 ? 'Active' : 'Inactive' }}
@@ -141,7 +144,7 @@
 
                 </td>
 
-                <td style="padding:15px; text-align:center;">
+                <td style="padding:15px;">
 
                     <div class="action-icons"
                          style="
@@ -153,8 +156,8 @@
 
                         {{-- DELETE FORM --}}
                         <form id="deleteProductForm{{ $product->id }}"
-                              method="POST"
                               action="{{ route('products.destroy', $product->id) }}"
+                              method="POST"
                               style="display:none;">
 
                             @csrf
@@ -162,9 +165,8 @@
 
                         </form>
 
-                        {{-- DELETE BUTTON --}}
+                        {{-- DELETE --}}
                         <button type="button"
-                                class="icon-btn-btn"
                                 onclick="showDeletePopup('deleteProductForm{{ $product->id }}')"
                                 style="
                                     background:none;
@@ -175,32 +177,28 @@
 
                             <img src="{{ asset('images/icons/delete.png') }}"
                                  alt="Delete"
-                                 class="icon-btn"
                                  title="Delete"
+                                 class="icon-btn"
                                  style="width:20px;">
 
                         </button>
 
                         {{-- EDIT --}}
-                        <a href="{{ route('products.edit',$product->id) }}">
-
+                        <a href="{{ route('products.edit', $product->id) }}">
                             <img src="{{ asset('images/icons/edit.png') }}"
                                  alt="Edit"
-                                 class="icon-btn"
                                  title="Edit"
+                                 class="icon-btn"
                                  style="width:20px;">
-
                         </a>
 
                         {{-- DETAIL --}}
-                        <a href="{{ route('products.show',$product->id) }}">
-
+                        <a href="{{ route('products.show', $product->id) }}">
                             <img src="{{ asset('images/icons/detail.png') }}"
-                                 alt="Show"
-                                 class="icon-btn"
+                                 alt="Detail"
                                  title="Detail"
+                                 class="icon-btn"
                                  style="width:20px;">
-
                         </a>
 
                     </div>
@@ -209,24 +207,20 @@
 
             </tr>
 
-            @empty
+        @empty
 
             <tr>
-
                 <td colspan="6"
                     style="
                         text-align:center;
                         color:#999;
                         padding:20px;
                     ">
-
                     No products found
-
                 </td>
-
             </tr>
 
-            @endforelse
+        @endforelse
 
         </tbody>
 
@@ -234,28 +228,17 @@
 
 </div>
 
-{{-- SCRIPT --}}
-<script>
-function toggleFilterMenu() {
-    const menu = document.getElementById('filterMenu');
-    menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+<style>
+.filter-submit{
+    border:none;
+    cursor:pointer;
 }
 
-function selectFilter(type) {
-    document.getElementById('filterLabel').innerText =
-        type === 'price' ? 'Price' :
-        type === 'status' ? 'Status' : 'Product Name';
-
-    document.getElementById('filterPanel').classList.add('active');
-
-    document.querySelectorAll('.filter-field').forEach(el => {
-        el.style.display = 'none';
-    });
-
-    document.querySelector(`[data-filter="${type}"]`).style.display = 'block';
-
-    document.getElementById('filterMenu').style.display = 'none';
+.filter-action{
+    display:flex;
+    gap:10px;
+    align-items:center;
 }
-</script>
+</style>
 
 @endsection
