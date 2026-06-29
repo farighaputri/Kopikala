@@ -8,14 +8,34 @@ use Illuminate\Http\Request;
 
 class ProductApiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil hanya produk yang available
-        $products = Product::where('status', 'available')->get();
+       
+        $query = Product::where('status', 1);
+
+        
+        if ($request->filled('name')) {
+            $query->where('name', 'like', '%' . $request->name . '%');
+        }
+
+        $products = $query->latest()->get();
+
+        $data = $products->map(function ($product) {
+            return [
+                'id' => $product->id,
+                'name' => $product->name,
+                'desc' => $product->description ?? '',
+                'price' => (int) $product->price,
+              
+                'image' => $product->image 
+                    ? asset('storage/' . $product->image) 
+                    : asset('assets/images/default.png'), 
+            ];
+        });
 
         return response()->json([
             'status' => 'success',
-            'data' => $products
-        ]);
+            'products' => $data 
+        ], 200);
     }
 }

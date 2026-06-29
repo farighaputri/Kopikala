@@ -26,7 +26,7 @@ use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 | ROOT
 |--------------------------------------------------------------------------
 */
-Route::get('/', fn() => redirect()->route('frontend.about'));
+Route::get('/', fn() => redirect()->route('login'));
 
 /*
 |--------------------------------------------------------------------------
@@ -44,30 +44,66 @@ Route::get('/about', function () {
 */
 
 // LOGIN PAGE
+/*
+|--------------------------------------------------------------------------
+| AUTH USER (CUSTOMER)
+|--------------------------------------------------------------------------
+*/
+
+// LOGIN PAGE
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
 
-// LOGIN PROCESS
+// LOGIN PROCESS (FIXED FOR CUSTOM STAFF & USER NOTIFICATIONS)
 Route::post('/login', function (Request $request) {
     $request->validate([
         'email' => 'required|email',
         'password' => 'required',
-        'login_as' => 'required'
+        'login_as' => 'required|in:user,admin'
     ]);
 
-    // ADMIN LOGIN
+    // === 1. ADMIN LOGIN (Dengan proteksi notifikasi khusus staff) ===
     if ($request->login_as == 'admin') {
+        // Cek apakah email terdaftar di tabel Staff
+        $staff = \App\Models\Staff::where('email', $request->email)->first();
+
+        // JIKA EMAIL ADMIN/STAFF TIDAK TERDAFTAR DI DATABASE
+        if (!$staff) {
+            return back()->with([
+                'error' => 'Anda bukan bagian staff kopikala.'
+            ])->withInput($request->only('email', 'login_as'));
+        }
+
+        // JIKA EMAIL ADA, LANJUTKAN PROSESNYA KE AUTHCONTROLLER UNTUK CEK STATUS & PASSWORD
         return app(AuthController::class)->login($request);
     }
 
-    // USER LOGIN
-    if (Auth::guard('web')->attempt($request->only('email','password'))) {
-        $request->session()->regenerate();
-        return redirect()->route('menu')->with('success','Login berhasil!');
+    // === 2. USER LOGIN ===
+    if ($request->login_as == 'user') {
+        // Cek apakah email user terdaftar di database
+        $user = \App\Models\User::where('email', $request->email)->first();
+
+        // JIKA USER TIDAK TERDAFTAR
+        if (!$user) {
+            return back()->with([
+                'error' => 'Akun belum terdaftar.'
+            ])->withInput($request->only('email', 'login_as'));
+        }
+
+        // JIKA USER TERDAFTAR, COBA COCOKKAN PASSWORD
+        if (Auth::guard('web')->attempt($request->only('email', 'password'))) {
+            $request->session()->regenerate();
+            return redirect()->route('menu')->with('success', 'Login berhasil!');
+        }
+
+        // JIKA PASSWORD USER SALAH
+        return back()->with([
+            'error' => 'Email atau password salah.'
+        ])->withInput($request->only('email', 'login_as'));
     }
 
-    return back()->with('error','Login gagal');
+    return back()->with('error', 'Pilihan login tidak valid.');
 })->name('login.submit');
 
 // GOOGLE LOGIN USER

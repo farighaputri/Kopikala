@@ -9,7 +9,7 @@
             <h2 style="font-size: 28px; font-weight: 700; color: #333; margin: 0;">
                 Semeru Stock
                 <span style="color: #999; font-weight: 400; font-size: 20px; margin-left: 5px;">
-                    › Add New Stock
+                    › Edit Stock
                 </span>
             </h2>
         </a>

@@ -18,10 +18,7 @@ class Product extends Model
         'description',
     ];
 
-    /**
-     * Relasi ke tabel product_customizations
-     * Satu produk memiliki banyak customization.
-     */
+
     public function customizations()
     {
         return $this->hasMany(ProductCustomization::class);

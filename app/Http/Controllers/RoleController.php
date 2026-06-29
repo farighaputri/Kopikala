@@ -50,7 +50,7 @@ class RoleController extends Controller
             $role = Role::create([
                 'name'   => $request->name,
                 'status' => $request->status,
-                'access' => $permissionNames, // ⬅️ Langsung masukkan array (otomatis di-cast ke JSON oleh Model)
+                'access' => $permissionNames,
             ]);
 
             if (!empty($permissionNames)) {
@@ -94,7 +94,7 @@ class RoleController extends Controller
             $role->update([
                 'name'   => $request->name,
                 'status' => $request->status,
-                'access' => $permissionNames, // ⬅️ Langsung masukkan array (otomatis di-cast ke JSON oleh Model)
+                'access' => $permissionNames, 
             ]);
 
             $permissionIds = [];

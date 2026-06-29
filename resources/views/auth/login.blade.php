@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="id">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kopikala - Login / Daftar</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
 
@@ -168,45 +168,28 @@
       margin-bottom: 20px;
     }
 
-    .social-login button {
-      flex: 1;
+    .social-btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      padding: 8px 14px;
+      gap: 10px;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
       border-radius: 10px;
-      border: 1px solid #ccc;
+      background: #fff;
       cursor: pointer;
-      background-color: white;
-      transition: 0.3s;
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
       font-family: inherit;
     }
 
-    .social-login button:hover {
-      background-color: #eee;
+    .google-btn:hover,
+    .apple-btn:hover {
+      background: #f5f5f5;
     }
-    .social-btn{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    background: #fff;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 10px;
-}
 
-
-.google-btn:hover,
-.apple-btn:hover{
-    background: #f5f5f5;
-}
     .switch-text {
       color: #333;
       font-size: 14px;
@@ -271,7 +254,8 @@
     <div class="left">
 
       {{-- LOGIN FORM --}}
-      <div class="form-section {{ session('show') == 'register' ? 'hidden' : '' }}" id="login-form">
+      {{-- Diperbaiki agar jika ada session error dari backend, form login tidak kabur atau tersembunyi --}}
+      <div class="form-section {{ session('show') == 'register' && !session('error') ? 'hidden' : '' }}" id="login-form">
         <h1>Selamat Datang Kembali!</h1>
         <p>Masuk untuk mengakses akun Anda</p>
 
@@ -279,79 +263,83 @@
           <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
+        {{-- Tempat cetak notifikasi akurat: "Akun belum terdaftar.", "Email atau password salah." dll --}}
         @if(session('error'))
           <div class="alert alert-error">{{ session('error') }}</div>
         @endif
 
-       <form method="POST" action="{{ route('login.submit') }}">
-  @csrf
+        <form method="POST" action="{{ route('login.submit') }}" id="main-login-form">
+          @csrf
 
-  <div class="form-group">
-    <input type="email" name="email" placeholder="Masukkan alamat email" value="{{ old('email') }}" required>
-  </div>
+          <div class="form-group">
+            <input type="email" name="email" id="login_email" placeholder="Masukkan alamat email" value="{{ old('email') }}">
+            <div class="error-text" id="error-login-email">
+              @error('email') {{ $message }} @enderror
+            </div>
+          </div>
 
-  <div class="form-group">
-    <input type="password" name="password" placeholder="Masukkan Password" required>
-  </div>
+          <div class="form-group">
+            <input type="password" name="password" id="login_password" placeholder="Masukkan Password">
+            <div class="error-text" id="error-login-password">
+              @error('password') {{ $message }} @enderror
+            </div>
+          </div>
 
- 
-  <div class="form-group">
-    <select name="login_as" required style="width:100%; padding:10px; border-radius:10px;">
-      <option value="user">Login sebagai User</option>
-      <option value="admin">Login sebagai Admin</option>
-    </select>
-  </div>
+          <div class="form-group">
+            <select name="login_as" required style="width:100%; padding:10px; border-radius:10px; font-family: inherit;">
+              <option value="user" {{ old('login_as') == 'user' ? 'selected' : '' }}>Login sebagai User</option>
+              <option value="admin" {{ old('login_as') == 'admin' ? 'selected' : '' }}>Login sebagai Admin</option>
+            </select>
+          </div>
 
- <button type="submit" class="btn">Login</button>
+          <button type="submit" class="btn">Login</button>
 
-<div class="divider">atau</div>
+          <div class="divider">atau</div>
 
-<div class="social-login">
-    <a href="/auth/google/user">
-        <button type="button" class="social-btn google-btn">
-            <i class="fa-brands fa-google"></i>
-            Google
-        </button>
-    </a>
-
-    <button type="button" class="social-btn apple-btn">
-        <i class="fa-brands fa-apple"></i>
-        Apple
-    </button>
-</div>
-  <p class="switch-text">Belum punya akun? <a onclick="showRegister()">Daftar</a></p>
-</form>
+          <div class="social-login">
+            <a href="/auth/google/user" style="flex: 1; text-decoration: none;">
+              <button type="button" class="social-btn google-btn">
+                <i class="fa-brands fa-google"></i> Google
+              </button>
+            </a>
+            <button type="button" class="social-btn apple-btn" style="flex: 1;">
+              <i class="fa-brands fa-apple"></i> Apple
+            </button>
+          </div>
+          <p class="switch-text">Belum punya akun? <a onclick="showRegister()">Daftar</a></p>
+        </form>
       </div>
 
       {{-- REGISTER FORM --}}
-      <div class="form-section {{ $errors->has('password') || $errors->has('email') || $errors->has('name') ? '' : 'hidden' }}" id="register-form">
+      <div class="form-section {{ ($errors->has('password') || $errors->has('email') || $errors->has('name') || session('show') == 'register') && !session('error') ? '' : 'hidden' }}" id="register-form">
         <h1>Daftar Sekarang</h1>
         <p>Buat akun baru untuk bergabung bersama kami</p>
 
-        <form method="POST" action="{{ route('register.submit') }}">
+        <form method="POST" action="{{ route('register.submit') }}" id="main-register-form">
           @csrf
           <div class="form-group">
-            <input type="text" name="name" placeholder="Masukkan nama" value="{{ old('name') }}" required>
-            @error('name')
-              <div class="error-text">{{ $message }}</div>
-            @enderror
+            <input type="text" name="name" id="register_name" placeholder="Masukkan nama" value="{{ old('name') }}">
+            <div class="error-text" id="error-register-name">
+              @error('name') {{ $message }} @enderror
+            </div>
           </div>
           <div class="form-group">
-            <input type="email" name="email" placeholder="Masukkan alamat email" value="{{ old('email') }}" required>
-            @error('email')
-              <div class="error-text">{{ $message }}</div>
-            @enderror
+            <input type="email" name="email" id="register_email" placeholder="Masukkan alamat email" value="{{ old('email') }}">
+            <div class="error-text" id="error-register-email">
+              @error('email') {{ $message }} @enderror
+            </div>
           </div>
           <div class="form-group">
-            <input type="password" name="password" placeholder="Masukkan password" required>
-            @error('password')
-              <div class="error-text">{{ $message }}</div>
-            @enderror
+            <input type="password" name="password" id="register_password" placeholder="Masukkan password">
+            <div class="error-text" id="error-register-password">
+              @error('password') {{ $message }} @enderror
+            </div>
           </div>
 
           <div class="checkbox-inline">
-            <input type="checkbox" required><span>Saya setuju dengan kebijakan privasi</span>
-          </div><br>
+            <input type="checkbox" id="register_terms" required><span>Saya setuju dengan kebijakan privasi</span>
+          </div>
+          <div class="error-text" id="error-register-terms" style="margin-bottom: 10px;"></div>
 
           <button type="submit" class="btn">Daftar</button>
 
@@ -366,20 +354,80 @@
       <div class="overlay"></div>
     </div>
   </div>
+
   <script>
     const loginForm = document.getElementById('login-form');
     const registerForm = document.getElementById('register-form');
+    
+    const mainLoginForm = document.getElementById('main-login-form');
+    const mainRegisterForm = document.getElementById('main-register-form');
 
     function showRegister() {
       loginForm.classList.add('hidden');
       registerForm.classList.remove('hidden');
+      clearErrors();
     }
 
     function showLogin() {
       registerForm.classList.add('hidden');
       loginForm.classList.remove('hidden');
+      clearErrors();
     }
-  </script>
 
+    function clearErrors() {
+      document.querySelectorAll('.error-text').forEach(el => el.innerText = '');
+    }
+
+    // === VALIDASI LIVE SISI CLIENT (FORM KOSONG) ===
+    mainLoginForm.addEventListener('submit', function(e) {
+      let valid = true;
+      const email = document.getElementById('login_email').value.trim();
+      const password = document.getElementById('login_password').value.trim();
+      
+      document.getElementById('error-login-email').innerText = '';
+      document.getElementById('error-login-password').innerText = '';
+
+      if (email === '') {
+        document.getElementById('error-login-email').innerText = 'Email tidak boleh kosong.';
+        valid = false;
+      }
+      if (password === '') {
+        document.getElementById('error-login-password').innerText = 'Password tidak boleh kosong.';
+        valid = false;
+      }
+
+      if (!valid) {
+        e.preventDefault();
+      }
+    });
+
+    mainRegisterForm.addEventListener('submit', function(e) {
+      let valid = true;
+      const name = document.getElementById('register_name').value.trim();
+      const email = document.getElementById('register_email').value.trim();
+      const password = document.getElementById('register_password').value.trim();
+      
+      document.getElementById('error-register-name').innerText = '';
+      document.getElementById('error-register-email').innerText = '';
+      document.getElementById('error-register-password').innerText = '';
+
+      if (name === '') {
+        document.getElementById('error-register-name').innerText = 'Nama tidak boleh kosong.';
+        valid = false;
+      }
+      if (email === '') {
+        document.getElementById('error-register-email').innerText = 'Email tidak boleh kosong.';
+        valid = false;
+      }
+      if (password === '') {
+        document.getElementById('error-register-password').innerText = 'Password tidak boleh kosong.';
+        valid = false;
+      }
+
+      if (!valid) {
+        e.preventDefault();
+      }
+    });
+  </script>
 </body>
 </html>

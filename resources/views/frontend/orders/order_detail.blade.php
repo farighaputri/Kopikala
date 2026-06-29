@@ -8,9 +8,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
 
 <style>
@@ -70,25 +68,133 @@ body::before{
 .nav a{
     text-decoration:none;
     color:var(--brown);
+    transition: 0.2s;
 }
 
-.profile-icon{
-    font-size:34px;
+.nav a:hover {
+    color: var(--brown2);
+}
+
+/* ================= DROPDOWN PROFIL WRAPPER ================= */
+.profile-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid var(--brown);
+    transition: .3s;
+}
+
+.profile-avatar:hover {
+    transform: scale(1.08);
+    border-color: #f1c27d;
+}
+
+/* Kotak Dropdown Rapi Maksimal */
+.profile-dropdown {
+    position: absolute;
+    top: 130%;
+    right: 0;
+    width: 320px;
+    background: white;
+    border-radius: 20px;
+    padding: 22px;
+    display: none;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border: 1px solid #E6DED5;
+    text-align: left;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+    width: 100%;
+}
+
+.user-info img {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 1px solid #D8CABD;
+}
+
+.user-text-details {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.user-info h4 {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 18px;
+    margin: 0;
+    color: #3c1f0e;
+    line-height: 1.2;
+    word-break: break-word;
+    white-space: normal;
+    font-weight: normal;
+}
+
+.user-info small {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 13px;
+    color: #6E5443;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dropdown-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px 6px;
+    color: #3c1f0e;
+    text-decoration: none;
+    font-size: 18px;
+    border: none;
+    background: transparent;
+    border-top: 1px solid #E6DED5;
+    font-family: 'Patrick Hand', cursive;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.dropdown-link:hover {
+    color: #f1c27d;
+}
+
+.dropdown-link.logout {
+    color: #ff4d4d;
 }
 
 /* ================= MAIN ================= */
-.order-wrapper{
+.order-wrapper {
     max-width:1400px;
     margin:auto;
     padding:0 40px 80px;
 }
 
-.page-title{
+.page-title {
     font-size:64px;
     margin-bottom:30px;
 }
 
-.order-card{
+.order-card {
     background:#F8F8F8;
     border-radius:30px;
     padding:32px 36px;
@@ -97,13 +203,13 @@ body::before{
 }
 
 /* HEADER */
-.order-id{
+.order-id {
     font-size:28px;
     margin-bottom:14px;
     font-weight:400;
 }
 
-.order-time{
+.order-time {
     display:flex;
     gap:60px;
     font-size:16px;
@@ -111,14 +217,14 @@ body::before{
     color:#5C4638;
 }
 
-hr{
+hr {
     border:none;
     border-top:1px solid #B08A73;
     margin:26px 0;
 }
 
 /* ================= STATUS ================= */
-.status-wrapper{
+.status-wrapper {
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -126,14 +232,14 @@ hr{
     margin-bottom:45px;
 }
 
-.step{
+.step {
     display:flex;
     align-items:center;
     gap:8px;
     white-space:nowrap;
 }
 
-.circle{
+.circle {
     width:24px;
     height:24px;
     border-radius:50%;
@@ -145,16 +251,16 @@ hr{
     background:#C9B7AA;
 }
 
-.step.active .circle{
+.step.active .circle {
     background:#6B3A16;
 }
 
-.step span{
+.step span {
     font-size:15px;
     color:#6B3A16;
 }
 
-.line{
+.line {
     flex:1;
     height:2px;
     background:#CDB7A7;
@@ -162,347 +268,236 @@ hr{
 }
 
 /* ================= ITEM ================= */
-.order-item{
+.order-item {
     display:flex;
     justify-content:space-between;
     align-items:flex-start;
     margin-bottom:40px;
 }
 
-.item-left{
+.item-left {
     display:flex;
     align-items:flex-start;
     gap:16px;
 }
 
-.item-left img{
+.item-left img {
     width:92px;
     height:72px;
     object-fit:cover;
     border-radius:12px;
 }
 
-.item-info h3{
+.item-info h3 {
     font-size:22px;
     margin-bottom:8px;
     line-height:1.2;
     font-weight:400;
 }
 
-.item-info p{
+.item-info p {
     font-size:14px;
     color:#5F4537;
     line-height:1.5;
 }
 
-/* HAPUS BOX DETAIL */
-.menu-detail-box{
-    display:none;
-}
-
-.item-right{
+.item-right {
     text-align:right;
 }
 
-.item-right .price{
+.item-right .price {
     font-size:20px;
     margin-bottom:8px;
     font-weight:400;
 }
 
-.item-right .qty{
+.item-right .qty {
     font-size:14px;
 }
 
 /* ================= SECTION ================= */
-.section-title{
+.section-title {
     font-size:28px;
     margin-bottom:24px;
     font-weight:400;
 }
 
 /* ================= DETAIL ================= */
-.detail-grid{
+.detail-grid {
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:120px;
 }
 
-.detail-item{
+.detail-item {
     margin-bottom:28px;
 }
 
-.detail-item .label{
+.detail-item .label {
     display:block;
     font-size:15px;
     margin-bottom:8px;
     color:#5B4638;
 }
 
-.detail-item .value{
+.detail-item .value {
     font-size:18px;
 }
 
 /* ================= PAYMENT ================= */
-.payment-box{
+.payment-box {
     max-width:520px;
 }
 
-.payment-row{
+.payment-row {
     display:flex;
     justify-content:space-between;
     margin-bottom:18px;
     font-size:18px;
 }
 
-.payment-total{
+.payment-total {
     display:flex;
     justify-content:space-between;
     margin-top:35px;
     font-size:30px;
 }
 
-* ================= FOOTER ================= */
-
-footer{
-    background-color:#3c1f0e;
-    color:#fff8f0;
-
-    padding:70px 60px 0;
-
-    position:relative;
-    overflow:hidden;
-}
-
-/* CONTAINER */
-.footer-container{
-    max-width:1200px;
-    margin:0 auto;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:50px;
-
-    position:relative;
-    z-index:5;
-}
-
-/* ================= LEFT ================= */
-
-.footer-left{
-    flex:1;
-}
-
-.footer-left img{
-    width:180px;
-    height:auto;
-}
-
-.footer-left p{
-    margin-top:10px;
-
-    font-size:1.05rem;
-    color:#f8e6cc;
-
-    max-width:280px;
-    line-height:1.6;
-}
-
-/* ================= CENTER ================= */
-
-.footer-center{
-    flex:10;
-    text-align:center;
-    margin-top: -20px;
-}
-
-.footer-center h3{
-    margin-bottom:16px;
-    font-size:1.4rem;
-    
-}
-
-.footer-center ul{
-    list-style:none;
-    padding:0;
-    margin:0;
-}
-
-.footer-center li{
-    margin-bottom:10px;
-}
-
-.footer-center a{
-    color:#fff8f0;
-    font-size:1.05rem;
-    transition:.3s;
-}
-
-.footer-center a:hover{
-    color:#f1c27d;
-}
-
+/* ================= FOOTER ================= */
 footer {
     margin-top: 90px;
     background: #3b1604;
     color: white;
-    padding-top: 30px;
-    padding-bottom: 25px;
+    padding: 80px 45px 25px;
+    position: relative;
+    overflow: hidden;
 }
 
 .footer-container {
-    max-width: var(--container);
+    max-width: 1400px;
     margin: 0 auto;
-
-    padding: 0 45px;
-
     display: flex;
     justify-content: space-between;
-
     align-items: flex-start; 
+    gap: 50px;
 }
 
 .footer-left img {
-    width: 190px; /* kecilin logo */
-
+    width: 190px;
+    margin-top: -60px;
 }
 
 .footer-left p {
     margin-top: 6px;
     font-size: 15px;
-    white-space:nowrap; /* biar ga turun */
+    color: #f8e6cc;
+    white-space:nowrap;
 }
 
-.footer-title {
-    font-size: 18px; /* kecilin title */
-    margin-bottom: 10px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
+.footer-center h3 {
+    margin-bottom: 16px;
+    font-size: 1.4rem;
+    margin-top: -10px;
 }
 
-.footer-links {
+.footer-center ul {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 
-.footer-links li {
-    margin-bottom: 8px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 12px;
+.footer-center li {
+    margin-bottom: 10px;
 }
 
-/* ================= FOOTER RIGHT ================= */
-
-.footer-right{
-    flex:1;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:flex-end; /* pojok kanan */
-    text-align:right;
+.footer-center a {
+    color: #fff8f0;
+    font-size: 1.05rem;
+    transition: .3s;
 }
 
-/* Judul */
-.footer-right h3{
-    margin:0 0 14px;
-
-    font-size:1.2rem;
-    color:#fff8f0;
-
-    white-space:nowrap; /* biar ga turun */
+.footer-center a:hover {
+    color: #f1c27d;
 }
 
-/* ================= SOCIAL ICONS ================= */
-
-.social-icons{
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-
-    gap:14px;
+.footer-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    text-align: right;
 }
 
-/* Link */
-.social-icons a{
-    display:flex;
-    justify-content:center;
-    align-items:center;
+.footer-right h3 {
+    margin: 0 0 14px;
+    font-size: 1.2rem;
+    color: #fff8f0;
+    white-space: nowrap; 
+    margin-top: -30px;
 }
 
-/* Icon */
-.social-icons img{
-    width:34px;
-    height:34px;
-
-    object-fit:contain;
-
-    transition:0.3s ease;
+.social-icons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 14px;
 }
 
-/* Hover */
-.social-icons img:hover{
-    transform:scale(1.12);
-}
-/* ================= FOOTER CUPS ================= */
-.footer-cups{
-    width:100vw;
-    height:120px;
-
-    position:relative;
-
-    display:flex;
-    justify-content:space-evenly;
-    align-items:flex-end;
-
-    padding:0 10px;
-
-    left:50%;
-    right:50%;
-    margin-left:-50vw;
-    margin-right:-50vw;
-
-    overflow:visible;
-
-    /* background utama footer */
-    background:transparent;
+.social-icons a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-/* COKLAT MUDA DI TENGAH */
-.footer-cups::before{
-    content:'';
-
-    position:absolute;
-
-    left:0;
-    top:100%;
-
-    transform:translateY(-50%);
-
-    width:100%;
-    height:90px;
-
-    background:#8b6345;
-
-    z-index:1;
+.social-icons img {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+    transition: 0.3s ease;
 }
 
-/* CUP */
-.footer-cups img{
-    position:relative;
-    z-index:3;
-
-    width:auto;
-    height:110px;
-
-    object-fit:contain;
-    display:block;
-
-    flex-shrink:0;
+.social-icons img:hover {
+    transform: scale(1.12);
 }
 
-/* POSISI CUP BEBAS */
+.footer-cups {
+    width: 100vw;
+    height: 120px;
+    position: relative;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    padding: 0 10px;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    overflow: visible;
+    background: transparent;
+}
+
+.footer-cups::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 100%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 90px;
+    background: #8b6345;
+    z-index: 1;
+}
+
+.footer-cups img {
+    position: relative;
+    z-index: 3;
+    width: auto;
+    height: 110px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+
 .footer-cups img:nth-child(1){ transform:translateY(-10px); }
 .footer-cups img:nth-child(2){ transform:translateY(8px); }
 .footer-cups img:nth-child(3){ transform:translateY(-6px); }
@@ -515,45 +510,23 @@ footer {
 .footer-cups img:nth-child(10){ transform:translateY(8px); }
 .footer-cups img:nth-child(11){ transform:translateY(-6px); }
 
-/* ================= MOBILE ================= */
-@media(max-width:768px){
-    .nav{
-        display:none;
-    }
-    .page-title{
-        font-size:44px;
-    }
-    .order-id{
-        font-size:30px;
-    }
-    .order-time{
-        flex-direction:column;
-        gap:15px;
-        font-size:20px;
-    }
-    .status-wrapper{
-        flex-direction:column;
-        align-items:flex-start;
-    }
-    .line{
-        width:2px;
-        height:30px;
-    }
-    .order-item{
-        flex-direction:column;
-        align-items:flex-start;
-        gap:20px;
-    }
-    .item-right{
-        text-align:left;
-    }
-    .detail-grid{
-        grid-template-columns:1fr;
-        gap:20px;
-    }
-    .footer-container{
-        flex-direction:column;
-    }
+@media(max-width:900px){
+    .topbar, .order-wrapper, .footer-container { padding-left: 20px; padding-right: 20px; }
+    .nav { display:none; }
+    .page-title { font-size:44px; }
+    .order-id { font-size:30px; }
+    .order-time { flex-direction:column; gap:15px; font-size:20px; }
+    .status-wrapper { flex-direction:column; align-items:flex-start; }
+    .line { width:2px; height:30px; }
+    .order-item { flex-direction:column; align-items:flex-start; gap:20px; }
+    .item-right { text-align:left; }
+    .detail-grid { grid-template-columns:1fr; gap:20px; }
+    .footer-container { flex-direction:column; text-align: center; align-items: center; gap: 30px; }
+    .footer-left img { margin-top: 0; }
+    .footer-right h3 { margin-top: 0; }
+    .footer-left, .footer-center, .footer-right { align-items: center; text-align: center; }
+    .social-icons { justify-content: center; }
+    .footer-cups img { width: 70px; }
 }
 </style>
 </head>
@@ -565,11 +538,44 @@ footer {
         <img src="{{ asset('media/Secondary logo.png') }}" alt="Kopikala">
     </div>
     <div class="nav">
-      <a href="{{ route('menu') }}">menu</a>
+        <a href="{{ route('menu') }}">menu</a>
         <a href="{{ route('frontend.about') }}">tentang</a>
         <a href="{{ route('frontend.sobatkala') }}">#sobatkala</a>
         <a href="{{ route('frontend.order') }}">pemesanan</a>
-        <i class="fa-solid fa-circle-user profile-icon"></i>
+        
+        @auth
+        <div class="profile-wrapper">
+            <img 
+              src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('media/default-avatar.png') }}"
+              class="profile-avatar"
+              id="profileToggle"
+              alt="Profile"
+            >
+
+            <div class="profile-dropdown" id="profileMenu">
+              <div class="user-info">
+                <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('media/default-avatar.png') }}" alt="Avatar">
+                <div class="user-text-details">
+                  <h4>{{ auth()->user()->name }}</h4>
+                  <small>{{ auth()->user()->email }}</small>
+                </div>
+              </div>
+
+              <a href="{{ route('profile.show') }}" class="dropdown-link">
+                <span>My Profile</span> <i class="fas fa-chevron-right"></i>
+              </a>
+
+              <form action="{{ route('logout.user') }}" method="POST" style="display:block; margin:0;">
+                @csrf
+                <button type="submit" class="dropdown-link logout">
+                  <span>Log Out</span> <i class="fas fa-sign-out-alt"></i>
+                </button>
+              </form>
+            </div>
+        </div>
+        @else
+            <a href="{{ route('login') }}" class="dropdown-link" style="border-top:none;">Login</a>
+        @endauth
     </div>
 </header>
 
@@ -584,67 +590,67 @@ footer {
         </div>
 
         <div class="order-time">
-            {{-- LOGIKA PARSING WAKTU DARI DATA PEMESANAN USER --}}
             @php
                 $waktuPesan = isset($transaction->created_at) ? \Carbon\Carbon::parse($transaction->created_at)->setTimezone('Asia/Jakarta') : \Carbon\Carbon::now('Asia/Jakarta');
-                // Set waktu pengambilan otomatis menjadi +1 jam (60 menit) dari waktu pesan
-                $waktuAmbil = $waktuPesan->copy()->addHour();
+                $waktuAmbul = $waktuPesan->copy()->addHour();
             @endphp
 
             <div>Waktu Pemesanan &nbsp; <span>{{ $waktuPesan->translatedFormat('j F Y H:i') }} WIB</span></div>
-            <div>Waktu Pengambilan &nbsp; <span id="pickupTimeText">{{ $waktuAmbil->format('H:i') }}</span> <strong id="countdownText" style="color: #6B3A16; margin-left: 8px;">(--:-- menit)</strong></div>
+            <div>Waktu Pengambilan &nbsp; <span id="pickupTimeText">{{ $waktuAmbul->format('H:i') }}</span> <strong id="countdownText" style="color: #6B3A16; margin-left: 8px;">(--:-- menit)</strong></div>
         </div>
 
         <hr>
 
         <div class="status-wrapper">
-    {{-- Step 1: Menunggu Konfirmasi --}}
-    <div class="step {{ in_array($transaction->status, ['Waiting Confirmation', 'Order Confirmed', 'Order Ready', 'Order Finished']) ? 'active' : '' }}">
-        <div class="circle">1</div>
-        <span>Menunggu Konfirmasi</span>
-    </div>
-    <div class="line"></div>
-    
-    {{-- Step 2: Pesanan Dikonfirmasi --}}
-    <div class="step {{ in_array($transaction->status, ['Order Confirmed', 'Order Ready', 'Order Finished']) ? 'active' : '' }}">
-        <div class="circle">2</div>
-        <span>Pesanan Dikonfirmasi</span>
-    </div>
-    <div class="line"></div>
-    
-    {{-- Step 3: Pesanan Siap --}}
-    <div class="step {{ in_array($transaction->status, ['Order Ready', 'Order Finished']) ? 'active' : '' }}">
-        <div class="circle">3</div>
-        <span>Pesanan Siap</span>
-    </div>
-    <div class="line"></div>
-    
-    {{-- Step 4: Pesanan Selesai --}}
-    <div class="step {{ $transaction->status == 'Order Finished' ? 'active' : '' }}">
-        <div class="circle">4</div>
-        <span>Pesanan Selesai</span>
-    </div>
-</div>
+            <div class="step {{ in_array($transaction->status, ['Waiting Confirmation', 'Order Confirmed', 'Order Ready', 'Order Finished']) ? 'active' : '' }}">
+                <div class="circle">1</div>
+                <span>Menunggu Konfirmasi</span>
+            </div>
+            <div class="line"></div>
+            
+            <div class="step {{ in_array($transaction->status, ['Order Confirmed', 'Order Ready', 'Order Finished']) ? 'active' : '' }}">
+                <div class="circle">2</div>
+                <span>Pesanan Dikonfirmasi</span>
+            </div>
+            <div class="line"></div>
+            
+            <div class="step {{ in_array($transaction->status, ['Order Ready', 'Order Finished']) ? 'active' : '' }}">
+                <div class="circle">3</div>
+                <span>Pesanan Siap</span>
+            </div>
+            <div class="line"></div>
+            
+            <div class="step {{ $transaction->status == 'Order Finished' ? 'active' : '' }}">
+                <div class="circle">4</div>
+                <span>Pesanan Selesai</span>
+            </div>
+        </div>
 
         @php
         $items = [];
-        if(isset($transaction->details) && count($transaction->details)){
-            foreach($transaction->details as $detail){
+
+        if (isset($transaction->items)) {
+            $decodedItems = is_string($transaction->items) ? json_decode($transaction->items, true) : $transaction->items;
+            
+            foreach (($decodedItems ?? []) as $item) {
                 $items[] = [
-                    'name' => $detail->product->nama_produk ?? 'Produk',
-                    'foto' => $detail->product->foto ?? 'kopi-susu.png',
-                    'price' => $detail->price ?? 0,
-                    'qty' => $detail->qty ?? 0,
-                    'size' => $detail->size ?? 'Kopi Normal',
-                    'sugar_level' => $detail->sugar_level ?? 'Normal',
-                    'ice_level' => $detail->ice_level ?? 'Normal',
+                    'name'    => $item['product_name'] ?? $item['name'] ?? 'Produk Tidak Diketahui',
+                    'foto'    => $item['product_image'] ?? $item['image'] ?? $item['foto'] ?? 'default.png',
+                    'price'   => $item['price'] ?? 0,
+                    'qty'     => $item['qty'] ?? $item['quantity'] ?? 0,
+                    'options' => $item['customizations'] ?? $item['options'] ?? [],
                 ];
             }
-        } elseif(isset($transaction->items)){
-            if(is_array($transaction->items)){
-                $items = $transaction->items;
-            } else {
-                $items = json_decode($transaction->items, true) ?? [];
+        } 
+        elseif (isset($transaction->details) && $transaction->details->count() > 0) {
+            foreach ($transaction->details as $detail) {
+                $items[] = [
+                    'name'    => $detail->product?->name ?? 'Produk',
+                    'foto'    => $detail->product?->image ?? 'default.png',
+                    'price'   => $detail->price ?? 0,
+                    'qty'     => $detail->qty ?? 0,
+                    'options' => is_string($detail->options) ? json_decode($detail->options, true) : ($detail->options ?? []),
+                ];
             }
         }
 
@@ -652,6 +658,7 @@ footer {
         foreach($items as $item){
             $subtotal += ($item['price'] ?? 0) * ($item['qty'] ?? 0);
         }
+
         $discount = $transaction->discount ?? 0;
         $total = $subtotal - $discount;
         @endphp
@@ -659,22 +666,35 @@ footer {
         @forelse($items as $item)
         <div class="order-item">
             <div class="item-left">
-                <img src="{{ asset('images/' . ($item['foto'] ?? 'kopi-susu.png')) }}" alt="{{ $item['name'] ?? 'Produk' }}">
+                @php
+                    $gambarLink = asset('assets/images/default.png');
+                    if (!empty($item['foto']) && $item['foto'] !== 'default.png') {
+                        $gambarLink = filter_var($item['foto'], FILTER_VALIDATE_URL) ? $item['foto'] : asset('storage/' . $item['foto']);
+                    }
+                @endphp
+                <img src="{{ $gambarLink }}" alt="{{ $item['name'] }}">
+                
                 <div class="item-info">
-                    <h3>{{ $item['name'] ?? '-' }}</h3>
-                   <p>
-@php
-    $customText = [];
-
-    if(isset($item['options'])){
-        foreach($item['options'] as $option){
-            $customText[] = $option['customization'] . ' : ' . $option['option'];
-        }
-    }
-@endphp
-
-{{ count($customText) ? implode(', ', $customText) : 'Tanpa Customisasi' }}
-</p>
+                    <h3>{{ $item['name'] }}</h3>
+                    <p>
+                    @php
+                        $customText = [];
+                        if (isset($item['options']) && is_array($item['options'])) {
+                            foreach ($item['options'] as $option) {
+                                if (is_array($option)) {
+                                    $key = $option['customization'] ?? $option['title'] ?? $option['name'] ?? null;
+                                    $val = $option['option'] ?? $option['value'] ?? null;
+                                    if ($key && $val) {
+                                        $customText[] = $key . ' : ' . $val;
+                                    }
+                                } elseif (is_string($option)) {
+                                    $customText[] = $option;
+                                }
+                            }
+                        }
+                    @endphp
+                    {{ count($customText) ? implode(', ', $customText) : 'Tanpa Customisasi' }}
+                    </p>
                 </div>
             </div>
 
@@ -683,7 +703,7 @@ footer {
                     Rp {{ number_format(($item['price'] ?? 0) * ($item['qty'] ?? 0), 0, ',', '.') }}
                 </div>
                 <div class="qty">
-                    {{ $item['qty'] ?? 0 }} item
+                    {{ $item['qty'] }} item
                 </div>
             </div>
         </div>
@@ -710,23 +730,19 @@ footer {
             </div>
             <div>
                 <div>
-    <div class="detail-item">
-        <span class="label">Email</span>
-        <div class="value">
-            {{ $transaction->email ?? 'Jonathan@gmail.com' }}
-        </div>
-    </div>
+                    <div class="detail-item">
+                        <span class="label">Email</span>
+                        <div class="value">{{ $transaction->email ?? 'Jonathan@gmail.com' }}</div>
+                    </div>
 
-    <div class="detail-item">
-        <span class="label">Cabang Pengambilan</span>
-
-        <div class="value">
-            <i class="fa-solid fa-store"></i>
-
-            {{ $transaction->branch->branch_name ?? 'Cabang tidak ditemukan' }}
-        </div>
-    </div>
-</div>
+                    <div class="detail-item">
+                        <span class="label">Cabang Pengambilan</span>
+                        <div class="value">
+                            <i class="fa-solid fa-store"></i>
+                            {{ $transaction->branch->branch_name ?? 'Cabang tidak ditemukan' }}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -734,73 +750,42 @@ footer {
 
         <div class="section-title">Rincian Pembayaran</div>
 
-<div class="payment-box">
-    <div class="payment-row">
-        <span>Subtotal</span>
-        <span>Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
-    </div>
+        <div class="payment-box">
+            <div class="payment-row">
+                <span>Subtotal</span>
+                <span>Rp {{ number_format($subtotal, 0, ',', '.') }}</span>
+            </div>
 
-    <div class="payment-row">
-        <span>Potongan Harga</span>
-        <span>Rp {{ number_format($discount, 0, ',', '.') }}</span>
-    </div>
+            <div class="payment-row">
+                <span>Potongan Harga</span>
+                <span>Rp {{ number_format($discount, 0, ',', '.') }}</span>
+            </div>
 
-    <div class="payment-total">
-        <span>Total</span>
-        <strong>Rp {{ number_format($total, 0, ',', '.') }}</strong>
-    </div>
-</div>
-
-@if($transaction->status == 'Order Finished')
-<div style="
-    width:100%;
-    margin-top:40px;
-    display:flex;
-    justify-content:flex-end;
-">
-
-    <a href="{{ route('orders.receipt', $transaction->id) }}"
-       target="_blank"
-       style="
-        width:320px;
-        height:64px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:12px;
-
-        background:#4A210B;
-        color:white;
-
-        border-radius:14px;
-        text-decoration:none;
-
-        font-size:24px;
-
-        transition:.2s;
-       "
-
-       onmouseover="this.style.background='#6B3A16'"
-       onmouseout="this.style.background='#4A210B'">
-
-        <i class="fa-solid fa-receipt"></i>
-        Cetak Struk
-
-    </a>
-
-</div>
-@endif
+            <div class="payment-total">
+                <span>Total</span>
+                <strong>Rp {{ number_format($total, 0, ',', '.') }}</strong>
+            </div>
         </div>
 
+        @if($transaction->status == 'Order Finished')
+        <div style="width:100%; margin-top:40px; display:flex; justify-content:flex-end;">
+            <a href="{{ route('orders.receipt', $transaction->id) }}" target="_blank"
+               style="width:320px; height:64px; display:flex; align-items:center; justify-content:center; gap:12px; background:#4A210B; color:white; border-radius:14px; text-decoration:none; font-size:24px; transition:.2s;"
+               onmouseover="this.style.background='#6B3A16'"
+               onmouseout="this.style.background='#4A210B'">
+                <i class="fa-solid fa-receipt"></i> Cetak Struk
+            </a>
+        </div>
+        @endif
     </div> 
 </div> 
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
         let currentStatus = "{{ $transaction->status }}";
         let rawPickupText = $("#pickupTimeText").text().trim();
 
-        // 1. LOGIKA COUNTDOWN MENIT DAN DETIK BERJALAN
         function startCountdown() {
             if (!rawPickupText) return;
 
@@ -834,7 +819,6 @@ footer {
 
         startCountdown();
 
-        // 2. LOGIKA REAL-TIME CHECK STATUS DB SETIAP 4 DETIK
         setInterval(function() {
             $.ajax({
                 url: "{{ route('transactions.checkStatus', $transaction->order_id) }}",
@@ -847,55 +831,71 @@ footer {
                 }
             });
         }, 4000); 
+
+        // TOGGLE MENU DROPDOWN JAVASCRIPT
+        const profileToggle = document.getElementById('profileToggle');
+        const profileMenu = document.getElementById('profileMenu');
+
+        if (profileToggle && profileMenu) {
+            profileToggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                profileMenu.style.display = profileMenu.style.display === 'block' ? 'none' : 'block';
+            });
+
+            window.addEventListener('click', (e) => {
+                if (profileMenu && !profileMenu.contains(e.target)) {
+                    profileMenu.style.display = 'none';
+                }
+            });
+        }
     });
 </script>
- <footer>
+
+<footer>
     <div class="footer-container">
-      <div class="footer-left">
-        <img src="{{ asset('media/logo.png') }}" alt="Logo Kopikala">
-        <p>Harga Terjangkau, Kualitas Terjaga!</p>
-      </div>
-
-      <div class="footer-center">
-        <h3>Info Kopikala</h3> 
-        <ul>
-          <li><a href="#menu">Menu</a></li>
-          <li><a href="#sobatkala">#sobatkala</a></li>
-          <li><a href="#tentang">Tentang Kopikala</a></li><br>
-        </ul>
-      </div>
-
-      <div class="footer-right">
-        <h3>Ayo jadi #sobatkala!</h3>
-        <div class="social-icons">
-          <a href="https://www.instagram.com/kopikalaaa/" target="_blank">
-        <img src="media/Instagram.png" alt="Instagram">
-        </a>
-         <a href="https://linkedin.com/company/kopikala"
-   target="_blank">
-    <img src="media/Linkedin.png" alt="LinkedIn">
-</a>
-          <a href="https://wa.me/6281410882927"
-   target="_blank"
-   rel="noopener noreferrer">
-    <img src="media/Whatsapp.png" alt="WhatsApp">
-</a>
+        <div class="footer-left">
+            <img src="{{ asset('media/logo.png') }}" alt="Logo Kopikala">
+            <p>Harga Terjangkau, Kualitas Terjaga!</p>
         </div>
-      </div>
+
+        <div class="footer-center">
+            <h3>Info Kopikala</h3> 
+            <ul>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#sobatkala">#sobatkala</a></li>
+                <li><a href="#tentang">Tentang Kopikala</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-right">
+            <h3>Ayo jadi #sobatkala!</h3>
+            <div class="social-icons">
+                <a href="https://www.instagram.com/kopikalaaa/" target="_blank">
+                    <img src="{{ asset('media/Instagram.png') }}" alt="Instagram">
+                </a>
+                <a href="https://linkedin.com/company/kopikala" target="_blank">
+                    <img src="{{ asset('media/Linkedin.png') }}" alt="LinkedIn">
+                </a>
+                <a href="https://wa.me/6281410882927" target="_blank" rel="noopener noreferrer">
+                    <img src="{{ asset('media/Whatsapp.png') }}" alt="WhatsApp">
+                </a>
+            </div>
+        </div>
     </div>
 
-   <div class="footer-cups">
-    <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
-    <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
-</div>
-  </footer>
+    <div class="footer-cups">
+        <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
+        <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
+    </div>
+</footer>
+</body>
 </html>

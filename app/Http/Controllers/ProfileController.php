@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
-    // Pastikan hanya user login yang bisa akses
     public function __construct()
     {
         $this->middleware('auth');
@@ -19,47 +18,57 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request)
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    // VALIDASI
-    $request->validate([
-        'name' => 'nullable|string|max:255',
-        'email' => 'nullable|email|unique:users,email,' . $user->id,
-        'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-    ]);
+        // VALIDASI (Diubah menjadi nullable agar tidak crash jika input tidak terkirim/disabled)
+        $request->validate([
+            'name' => 'nullable|string|max:255',
+            'email' => 'nullable|email|unique:users,email,' . $user->id,
+            'avatar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
 
-    // ======================
-    // UPLOAD FOTO
-    // ======================
-    if ($request->hasFile('avatar')) {
+        // ======================
+        // UPLOAD FOTO
+        // ======================
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('avatar', 'public');
 
-    $request->validate([
-        'avatar' => 'image|mimes:jpg,jpeg,png|max:2048'
-    ]);
+            // update database
+            $user->avatar = $path;
+            $user->save();
 
-    $path = $request->file('avatar')->store('avatar', 'public');
+            // update session admin/staff jika ada
+            $staff = session('staff');
+            if ($staff) {
+                $staff['avatar'] = $path;
+                session(['staff' => $staff]);
+            }
+        }
 
-    // update database
-    $user->avatar = $path;
-    $user->save();
+        // ======================
+        // USER MANUAL (Hanya diisi jika input name & email dikirim dan tidak kosong)
+        // ======================
+        if (!$user->google_id) {
+            if ($request->filled('name')) {
+                $user->name = $request->name;
+            }
+            if ($request->filled('email')) {
+                $user->email = $request->email;
+            }
+        }
 
-    // update session admin
-    $staff = session('staff');
-    $staff['avatar'] = $path;
-    session(['staff' => $staff]);
-}
-    // ======================
-    // USER MANUAL
-    // ======================
-    if (!$user->google_id) {
+        $user->save();
 
-        $user->name = $request->name;
-        $user->email = $request->email;
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'status' => true,
+                'name'   => $user->name,
+                'email'  => $user->email,
+                'avatar' => $user->avatar ? asset('storage/' . $user->avatar) : asset('media/default-avatar.png')
+            ]);
+        }
+
+        return back()->with('success', 'Profil berhasil diperbarui!');
     }
-
-    $user->save();
-
-    return back()->with('success', 'Profil berhasil diperbarui!');
-}
 }

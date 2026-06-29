@@ -4,24 +4,26 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kopikala</title>
-  <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-body {
-  font-family: 'Comic Neue', cursive;
-  background-color: #f4ecdf;
-  color: #3c1f0e;
-  scroll-behavior: smooth;
-}
+    body {
+      font-family: 'Comic Neue', cursive;
+      background-color: #f4ecdf;
+      color: #3c1f0e;
+      scroll-behavior: smooth;
+    }
+
     /* === HEADER === */
     header {
       width: 100%;
@@ -80,57 +82,119 @@ body {
     .btn-kontak:hover {
       background: #e0b16e;
     }
-.profile-wrapper {
-  position: relative;
-  display: inline-block;
-}
 
-.profile-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-  border: 2px solid white;
-  transition: .3s;
-}
+    /* ================= DROPDOWN PROFIL WRAPPER ================= */
+    .profile-wrapper {
+      position: relative;
+      display: inline-block;
+    }
 
-.profile-avatar:hover {
-  transform: scale(1.08);
-}
+    .profile-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid white;
+      transition: .3s;
+    }
 
-.profile-dropdown {
-  position: absolute;
-  top: 120%;
-  right: 0;
-  width: 250px;
-  background: white;
-  border-radius: 12px;
-  padding: 15px;
-  display: none;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  z-index: 999;
-}
+    .profile-avatar:hover {
+      transform: scale(1.08);
+    }
 
-.user-info {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
+    /* Kotak Dropdown Rapi Maksimal */
+    .profile-dropdown {
+      position: absolute;
+      top: 130%;
+      right: 0;
+      width: 320px;
+      background: white;
+      border-radius: 20px;
+      padding: 22px;
+      display: none;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 1000;
+      border: 1px solid #E6DED5;
+      text-align: left;
+    }
 
-.user-info img {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  object-fit: cover;
-}
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      width: 100%;
+    }
+
+    .user-info img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid #D8CABD;
+    }
+
+    .user-text-details {
+      flex: 1;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .user-info h4 {
+      font-family: 'Comic Neue', cursive;
+      font-size: 18px;
+      margin: 0;
+      color: #3c1f0e;
+      line-height: 1.2;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    .user-info span {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      color: #6E5443;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .dropdown-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 12px 6px;
+      color: #3c1f0e;
+      text-decoration: none;
+      font-size: 18px;
+      border: none;
+      background: transparent;
+      border-top: 1px solid #E6DED5;
+      font-family: 'Comic Neue', cursive;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .dropdown-link:hover {
+      color: #f1c27d;
+    }
+
+    .dropdown-link.logout {
+      color: #ff4d4d;
+    }
+
     /* === HERO === */
     .hero {
       position: relative;
       height: 100vh;
       background:
         linear-gradient(rgba(27, 13, 0, 0.83), rgba(71, 35, 1, 0.83)),
-        url('media/BG JAM.png') center/cover no-repeat;
+        url("{{ asset('media/BG JAM.png') }}") center/cover no-repeat;
       background-attachment: fixed;
       display: flex;
       flex-direction: column;
@@ -138,7 +202,7 @@ body {
       align-items: center;
       color: white;
       text-align: center;
-      padding: 130px 20px; /* lebih rapat */
+      padding: 130px 20px;
     }
 
     .hero h1 {
@@ -171,12 +235,12 @@ body {
       background-color: #e0b16e;
     }
 
-    /* === GALLERY === */
+    /* === GALLERY POLAROID === */
     .gallery {
       position: relative;
       width: 100%;
       height: 370px;
-      margin-top: -180px; /* lebih dekat dengan hero */
+      margin-top: -180px;
       display: flex;
       justify-content: center;
       align-items: flex-end;
@@ -218,7 +282,7 @@ body {
     /* === ABOUT === */
     .about {
       background-color: #f4ecdf;
-      padding: 80px 10% 50px; /* lebih rapat */
+      padding: 80px 10% 50px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -238,16 +302,11 @@ body {
     }
     .about .illustration img:hover { transform: scale(1.1); }
 
-    @media (max-width: 768px) {
-      .about { flex-direction: column; text-align: center; }
-      .about .illustration img { width: 300px; }
-    }
-
     /* === KOMITMEN === */
     .commitment {
       text-align: center;
       background-color: #f4ecdf;
-      padding: 20px 0 40px; /* lebih rapat */
+      padding: 20px 0 40px;
       margin-top: -30px;
     }
 
@@ -281,52 +340,27 @@ body {
       display: block;
     }
 
-    /* === PENJUALAN 300+ === */
+    /* === PENJUALAN === */
     .penjualan-section {
       background-color: #f2e8d9;
       text-align: center;
-      padding: 40px 20px; /* lebih rapat */
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    .penjualan-section .judul-atas {
-      font-size: 25px;
-      margin-bottom: 8px;
-    }
+    .penjualan-section .judul-atas { font-size: 25px; margin-bottom: 8px; }
+    .penjualan-section .highlight img { width: 100%; max-width: 970px; height: auto; object-fit: cover; display: block; }
+    .penjualan-section .periode { font-size: 15px; margin-top: 10px; margin-bottom: 15px; }
+    .penjualan-section .deskripsi { font-size: 18px; line-height: 1.6; max-width: 950px; }
 
-    .penjualan-section .highlight img {
-      width: 100%;
-      max-width: 970px;
-      height: auto;
-      object-fit: cover;
-      display: block;
-    }
-
-    .penjualan-section .periode {
-      font-size: 15px;
-      margin-top: 10px;
-      margin-bottom: 15px;
-    }
-
-    .penjualan-section .deskripsi {
-      font-size: 18px;
-      line-height: 1.6;
-      max-width: 950px;
-    }
-
-    @media (max-width: 600px) {
-      .penjualan-section .highlight img { max-width: 300px; }
-      .penjualan-section .deskripsi { font-size: 16px; max-width: 300px; }
-    }
-
-    /* === KOLOASE FOTO === */
+    /* === KOLASE FOTO === */
     .kolase-wrapper {
       background-color: #3c1f0e;
       color: white;
       text-align: center;
-      padding: 35px 0; /* lebih rapat */
+      padding: 35px 0;
       margin-top: -10px;
       width: 100vw;
       position: relative;
@@ -336,359 +370,207 @@ body {
       margin-right: -50vw;
     }
 
-    .kolase-wrapper .quote {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 40px;
-      max-width: 900px;
-      line-height: 1.5;
-      margin-left: auto;
-      margin-right: auto;
+    .kolase-wrapper .quote { font-size: 24px; text-align: center; margin-bottom: 40px; max-width: 900px; line-height: 1.5; margin-left: auto; margin-right: auto; }
+    .kolase-wrapper img { display: block; width: 100vw; height: auto; margin: 0; }
+
+    /* ================= FOOTER ================= */
+    footer{
+      background:#3b1604;
+      color:#fff8f0;
+      padding:70px 45px 25px;
+      overflow:hidden;
     }
-
-    .kolase-wrapper img {
-      display: block;
-      width: 100vw;
-      height: auto;
-      border-radius: 0;
-      box-shadow: none;
-      margin: 0;
-    }
-
-    @media (max-width: 600px) {
-      .kolase-wrapper .quote { font-size: 18px; }
-    }
-
-/* ================= FOOTER ================= */
-
-footer{
-    background:#3c1f0e;
-    color:#fff8f0;
-    padding:70px 80px 0;
-    overflow:hidden;
-}
-
-/* CONTAINER */
-.footer-container{
-    width:100%;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-
-    gap:20px;
-}
-
-/* ================= LEFT ================= */
-
-.footer-left{
-    flex:1;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:flex-start;
-    text-align:left;
-}
-
-.footer-left img{
-    width:180px;
-    margin-bottom:10px;
-}
-
-.footer-left p{
-    font-size:18px;
-}
-
-/* ================= CENTER ================= */
-
-.footer-center{
-    flex:1;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:center;
-    text-align:center;
-}
-
-.footer-center h3{
-    font-size:32px;
-    margin-bottom:20px;
-}
-
-.footer-center ul{
-    list-style:none;
-}
-
-.footer-center li{
-    margin-bottom:12px;
-}
-
-.footer-center a{
-    color:white;
-    text-decoration:none;
-    font-size:20px;
-}
-
-/* ================= RIGHT ================= */
-
-.footer-right{
-    flex:1;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:flex-end;
-    text-align:right;
-}
-
-.footer-right h3{
-    font-size:30px;
-    margin-bottom:20px;
-}
-
-.social-icons{
-    display:flex;
-    justify-content:flex-end;
-    gap:15px;
-}
-
-.social-icons a{
-    width:50px;
-    height:50px;
-
-    border:3px solid white;
-    border-radius:50%;
-
-    display:flex;
-    justify-content:center;
-    align-items:center;
-
-    color:white;
-    font-size:22px;
-
-    text-decoration:none;
-}
-
-/* ================= MOBILE ================= */
-
-@media(max-width:900px){
 
     .footer-container{
-        flex-direction:column;
-        align-items:center;
+      max-width: 1200px;
+      margin: 0 auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:50px;
     }
 
-    .footer-left,
-    .footer-center,
-    .footer-right{
-        align-items:center;
-        text-align:center;
+    .footer-left{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      text-align:left;
     }
+
+    .footer-left img{ width:190px; margin-bottom:10px; }
+    .footer-left p{ font-size:15px; color: #f8e6cc; white-space: nowrap; }
+
+    .footer-center{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      text-align:center;
+    }
+
+    .footer-center h3{ font-size:1.4rem; margin-bottom:16px; }
+    .footer-center ul{ list-style:none; }
+    .footer-center li{ margin-bottom:10px; }
+    .footer-center a{ color:white; text-decoration:none; font-size:1.05rem; transition: .3s; }
+    .footer-center a:hover{ color: #f1c27d; }
+
+    .footer-right{
+      flex:1;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      text-align:right;
+    }
+
+    .footer-right h3{ font-size:1.2rem; margin-bottom:14px; white-space: nowrap; }
 
     .social-icons{
-        justify-content:center;
+      display:flex;
+      justify-content:flex-end;
+      gap:14px;
     }
-}
-/* ================= FOOTER CUPS ================= */
-.footer-cups{
-    width:100vw;
-    height:120px;
 
-    position:relative;
+    .social-icons a { display: flex; justify-content: center; align-items: center; }
+    .social-icons img { width: 34px; height: 34px; object-fit: contain; transition: 0.3s ease; }
+    .social-icons img:hover { transform: scale(1.12); }
 
-    display:flex;
-    justify-content:space-evenly;
-    align-items:flex-end;
+    .footer-cups{
+      width:100vw;
+      height:120px;
+      position:relative;
+      display:flex;
+      justify-content:space-evenly;
+      align-items:flex-end;
+      padding:0 10px;
+      left:50%;
+      right:50%;
+      margin-left:-50vw;
+      margin-right:-50vw;
+      overflow:visible;
+      background:transparent;
+    }
 
-    padding:0 10px;
+    .footer-cups::before{
+      content:'';
+      position:absolute;
+      left:0;
+      top:100%;
+      transform:translateY(-50%);
+      width:100%;
+      height:90px;
+      background:#8b6345;
+      z-index:1;
+    }
 
-    left:50%;
-    right:50%;
-    margin-left:-50vw;
-    margin-right:-50vw;
+    .footer-cups img{ position:relative; z-index:3; width:auto; height:110px; object-fit:contain; display:block; flex-shrink:0; }
+    .footer-cups img:nth-child(1){ transform:translateY(-10px); }
+    .footer-cups img:nth-child(2){ transform:translateY(8px); }
+    .footer-cups img:nth-child(3){ transform:translateY(-6px); }
+    .footer-cups img:nth-child(4){ transform:translateY(5px); }
+    .footer-cups img:nth-child(5){ transform:translateY(-10px); }
+    .footer-cups img:nth-child(6){ transform:translateY(8px); }
+    .footer-cups img:nth-child(7){ transform:translateY(-6px); }
+    .footer-cups img:nth-child(8){ transform:translateY(5px); }
+    .footer-cups img:nth-child(9){ transform:translateY(-10px); }
+    .footer-cups img:nth-child(10){ transform:translateY(8px); }
+    .footer-cups img:nth-child(11){ transform:translateY(-6px); }
 
-    overflow:visible;
-
-    /* background utama footer */
-    background:transparent;
-}
-
-/* COKLAT MUDA DI TENGAH */
-.footer-cups::before{
-    content:'';
-
-    position:absolute;
-
-    left:0;
-    top:100%;
-
-    transform:translateY(-50%);
-
-    width:100%;
-    height:90px;
-
-    background:#8b6345;
-
-    z-index:1;
-}
-
-/* CUP */
-.footer-cups img{
-    position:relative;
-    z-index:3;
-
-    width:auto;
-    height:110px;
-
-    object-fit:contain;
-    display:block;
-
-    flex-shrink:0;
-}
-
-/* POSISI CUP BEBAS */
-.footer-cups img:nth-child(1){ transform:translateY(-10px); }
-.footer-cups img:nth-child(2){ transform:translateY(8px); }
-.footer-cups img:nth-child(3){ transform:translateY(-6px); }
-.footer-cups img:nth-child(4){ transform:translateY(5px); }
-.footer-cups img:nth-child(5){ transform:translateY(-10px); }
-.footer-cups img:nth-child(6){ transform:translateY(8px); }
-.footer-cups img:nth-child(7){ transform:translateY(-6px); }
-.footer-cups img:nth-child(8){ transform:translateY(5px); }
-.footer-cups img:nth-child(9){ transform:translateY(-10px); }
-.footer-cups img:nth-child(10){ transform:translateY(8px); }
-.footer-cups img:nth-child(11){ transform:translateY(-6px); }
-
-
+    /* ================= RESPONSIVE ================= */
     @media (max-width: 900px) {
-      header {
-        flex-direction: column;
-        padding: 15px;
-      }
-
+      header { flex-direction: column; padding: 15px; gap: 15px; }
       .logo img { width: 120px; }
-
       .hero h1 { font-size: 2.2rem; }
-
       .polaroid { width: 150px; }
       .polaroid img { height: 190px; }
-      .sobatkala h2 { font-size: 1.8rem; }
-      .sobatkala p { font-size: 1rem; }
-
-      .footer-container {
-        flex-direction: column;
-        text-align: center;
-        align-items: center;
-      }
-
-      .footer-left,
-      .footer-center,
-      .footer-right {
-        text-align: center;
-        margin-bottom: 40px;
-      }
-
-      .social-icons {
-        justify-content: center;
-      }
-
-      .footer-cups img {
-        width: 70px;
-      }
+      .about { flex-direction: column; text-align: center; }
+      .about .illustration img { width: 300px; }
+      .footer-container { flex-direction: column; text-align: center; align-items: center; gap: 30px; }
+      .footer-left, .footer-center, .footer-right { align-items: center; text-align: center; }
+      .social-icons { justify-content: center; }
+      .footer-cups img { width: 70px; }
+      .penjualan-section .highlight img { max-width: 300px; }
+      .penjualan-section .deskripsi { font-size: 16px; max-width: 300px; }
+      .kolase-wrapper .quote { font-size: 18px; }
     }
   </style>
 </head>
 
 <body>
-  <!-- HEADER -->
- <header id="navbar">
-  <div class="logo">
-    <img src="media/logo.png" alt="Logo Kopikala">
-  </div>
-
-  <nav>
-        <a href="{{ route('menu') }}">menu</a>
-        <a href="{{ route('frontend.about') }}">tentang</a>
-        <a href="{{ route('frontend.sobatkala') }}">#sobatkala</a>
-        <a href="{{ route('frontend.order') }}">pemesanan</a>
-
-    @auth
-    <div class="profile-wrapper">
-      <img 
-        src="{{ auth()->user()->avatar 
-            ? asset('storage/' . auth()->user()->avatar) 
-            : asset('media/default-avatar.png') }}"
-        class="profile-avatar"
-        id="profileToggle"
-        alt="Profile"
-      >
-
-      <div class="profile-dropdown" id="profileMenu">
-        <div class="user-info">
-          <img 
-            src="{{ auth()->user()->avatar 
-                ? asset('storage/' . auth()->user()->avatar) 
-                : asset('media/default-avatar.png') }}"
-            alt="Profile"
-          >
-          <div>
-            <h4>{{ auth()->user()->name }}</h4>
-            <span>{{ auth()->user()->email }}</span>
-          </div>
-        </div>
-
-        <a href="{{ route('profile.show') }}" class="dropdown-link">
-          My Profile <i class="fas fa-chevron-right"></i>
-        </a>
-
-        <form action="{{ route('logout.user') }}" method="POST">
-          @csrf
-          <button type="submit" class="dropdown-link logout"
-            style="background:none;border:none;cursor:pointer;">
-            Log Out <i class="fas fa-sign-out-alt"></i>
-          </button>
-        </form>
-      </div>
+  <header id="navbar">
+    <div class="logo">
+      <img src="{{ asset('media/logo.png') }}" alt="Logo Kopikala">
     </div>
-    @else
-      <a href="{{ route('login') }}" class="btn-kontak">Login</a>
-    @endauth
-  </nav>
-</header>
 
-  <!-- HERO -->
+    <nav>
+      <a href="{{ route('menu') }}">menu</a>
+      <a href="{{ route('frontend.about') }}">tentang</a>
+      <a href="{{ route('frontend.sobatkala') }}">#sobatkala</a>
+      <a href="{{ route('frontend.order') }}">pemesanan</a>
+
+      @auth
+      <div class="profile-wrapper">
+        <img 
+          src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('media/default-avatar.png') }}"
+          class="profile-avatar"
+          id="profileToggle"
+          alt="Profile"
+        >
+
+        <div class="profile-dropdown" id="profileMenu">
+          <div class="user-info">
+            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('media/default-avatar.png') }}" alt="Profile">
+            <div class="user-text-details">
+              <h4>{{ auth()->user()->name }}</h4>
+              <span>{{ auth()->user()->email }}</span>
+            </div>
+          </div>
+
+          <a href="{{ route('profile.show') }}" class="dropdown-link">
+            <span>My Profile</span> <i class="fas fa-chevron-right"></i>
+          </a>
+
+          <form action="{{ route('logout.user') }}" method="POST" style="display:block; margin:0;">
+            @csrf
+            <button type="submit" class="dropdown-link logout">
+              <span>Log Out</span> <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </form>
+        </div>
+      </div>
+      @else
+        <a href="{{ route('login') }}" class="btn-kontak">Login</a>
+      @endauth
+    </nav>
+  </header>
+
   <section class="hero">
     <h1>Harga Terjangkau, Kualitas Terjaga!</h1>
     <p>Kami percaya bahwa menikmati kopi terbaik tidak harus mahal. Kopikala hadir sebagai teman cerita, memberikan energi dan inspirasi bagi siapa saja yang membutuhkan semangat di setiap momen mereka.</p>
     <button>geser untuk mengetahui lebih banyak ↓</button>
   </section>
 
-  <!-- GALLERY -->
   <section class="gallery" id="sobatkala">
     <div class="gallery-inner">
-      <div class="polaroid"><img src="media/land1.jpg" alt=""></div>
-      <div class="polaroid"><img src="media/land2.jpg" alt=""></div>
-      <div class="polaroid"><img src="media/land3.jpg" alt=""></div>
-      <div class="polaroid"><img src="media/land4.jpg" alt=""></div>
-      <div class="polaroid"><img src="media/land5.jpg" alt=""></div>
-      <div class="polaroid"><img src="media/land6.jpg" alt=""></div>
+      <div class="polaroid"><img src="{{ asset('media/land1.jpg') }}" alt="Momen 1"></div>
+      <div class="polaroid"><img src="{{ asset('media/land2.jpg') }}" alt="Momen 2"></div>
+      <div class="polaroid"><img src="{{ asset('media/land3.jpg') }}" alt="Momen 3"></div>
+      <div class="polaroid"><img src="{{ asset('media/land4.jpg') }}" alt="Momen 4"></div>
+      <div class="polaroid"><img src="{{ asset('media/land5.jpg') }}" alt="Momen 5"></div>
+      <div class="polaroid"><img src="{{ asset('media/land6.jpg') }}" alt="Momen 6"></div>
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section class="about" id="about">
     <div class="text">
       <h2>Kami menyajikan kopi murah yang berkualitas!</h2>
       <p>Di Kopikala, kami percaya bahwa kopi bukan sekadar minuman. Kopi adalah sumber energi dan motivasi yang menyatukan setiap momen. Dengan komitmen kami, kami menyajikan kopi berkualitas tinggi yang terjangkau bagi siapa saja yang membutuhkan semangat ekstra.</p>
     </div>
     <div class="illustration">
-      <img src="media/gelas.png" alt="Ilustrasi Kopi">
+      <img src="{{ asset('media/gelas.png') }}" alt="Ilustrasi Kopi">
     </div>
   </section>
 
-  <!-- KOMITMEN -->
   <section class="commitment">
     <h3>Kopikala berkomitmen untuk...</h3>
     <div class="list">
@@ -698,16 +580,14 @@ footer{
     </div>
   </section>
 
-  <!-- TEAM -->
   <section class="team">
-    <img src="media/tim.png" alt="Tim Kopikala">
+    <img src="{{ asset('media/tim.png') }}" alt="Tim Kopikala">
   </section>
 
-  <!-- PENJUALAN 300+ -->
   <section class="penjualan-section">
     <p class="judul-atas">dengan lebih dari</p>
     <div class="highlight">
-      <img src="media/penjualan 300.png" alt="300+ Penjualan Kopikala">
+      <img src="{{ asset('media/penjualan 300.png') }}" alt="300+ Penjualan Kopikala">
     </div>
     <p class="periode">Periode pre-order Oktober sampai dengan Desember 2024</p>
     <p class="deskripsi">
@@ -719,89 +599,86 @@ footer{
     </p>
   </section>
 
-  <!-- KOLOASE FOTO -->
   <section class="kolase-wrapper">
     <p class="quote">
       "Kopikala bukan sekadar kopi, tapi bentuk semangat dan cerita dari setiap <b>#sobatkala</b> yang menikmati setiap tegukannya."
     </p>
-    <img src="media/moment.png" alt="Kolase Kopikala">
+    <img src="{{ asset('media/moment.png') }}" alt="Kolase Kopikala">
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-container">
       <div class="footer-left">
-        <img src="media/logo.png" alt="Logo Kopikala">
+        <img src="{{ asset('media/logo.png') }}" alt="Logo Kopikala">
         <p>Harga Terjangkau, Kualitas Terjaga!</p>
       </div>
 
-     <div class="footer-center">
+      <div class="footer-center">
         <h3>Info Kopikala</h3>
         <ul>
           <li><a href="#menu">Menu</a></li>
           <li><a href="#sobatkala">#sobatkala</a></li>
-          <li><a href="#tentang">Tentang Kopikala</a></li><br>
-        </ul><br>
+          <li><a href="#tentang">Tentang Kopikala</a></li>
+        </ul>
       </div>
 
-     <div class="footer-right">
+      <div class="footer-right">
         <h3>Ayo jadi #sobatkala!</h3>
         <div class="social-icons">
           <a href="https://www.instagram.com/kopikalaaa/" target="_blank">
-        <img src="media/Instagram.png" alt="Instagram">
-        </a>
-         <a href="https://linkedin.com/company/kopikala"
-   target="_blank">
-    <img src="media/Linkedin.png" alt="LinkedIn">
-</a>
-          <a href="https://wa.me/6281410882927"
-   target="_blank"
-   rel="noopener noreferrer">
-    <img src="media/Whatsapp.png" alt="WhatsApp">
-</a>
+            <img src="{{ asset('media/Instagram.png') }}" alt="Instagram">
+          </a>
+          <a href="https://linkedin.com/company/kopikala" target="_blank">
+            <img src="{{ asset('media/Linkedin.png') }}" alt="LinkedIn">
+          </a>
+          <a href="https://wa.me/6281410882927" target="_blank" rel="noopener noreferrer">
+            <img src="{{ asset('media/Whatsapp.png') }}" alt="Whatsapp">
+          </a>
         </div>
       </div>
     </div>
 
-     <div class="footer-cups">
-      <img src="media/Kopi Ga Miring01.png" alt="cup">
-      <img src="media/Kopi Ga Miring02.png" alt="cup">
-      <img src="media/Kopi Ga Miring03.png" alt="cup">
-      <img src="media/Kopi Ga Miring04.png" alt="cup">
-      <img src="media/Kopi Ga Miring01.png" alt="cup">
-      <img src="media/Kopi Ga Miring02.png" alt="cup">
-      <img src="media/Kopi Ga Miring03.png" alt="cup">
-      <img src="media/Kopi Ga Miring04.png" alt="cup">
-      <img src="media/Kopi Ga Miring01.png" alt="cup">
-      <img src="media/Kopi Ga Miring02.png" alt="cup">
-      <img src="media/Kopi Ga Miring03.png" alt="cup">
+    <div class="footer-cups">
+      <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
     </div>
   </footer>
 
   <script>
-    // Efek navbar berubah saat di-scroll
+    // Efek navbar berganti warna saat di-scroll
     window.addEventListener('scroll', function() {
       const header = document.getElementById('navbar');
       if (window.scrollY > 50) header.classList.add('scrolled');
       else header.classList.remove('scrolled');
     });
+
+    // Toggle Menu Dropdown Profil
     const profileToggle = document.getElementById('profileToggle');
-const profileMenu = document.getElementById('profileMenu');
+    const profileMenu = document.getElementById('profileMenu');
 
-if (profileToggle && profileMenu) {
-  profileToggle.addEventListener('click', (e) => {
-    e.stopPropagation();
-    profileMenu.style.display =
-      profileMenu.style.display === 'block' ? 'none' : 'block';
-  });
-}
+    if (profileToggle && profileMenu) {
+      profileToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        profileMenu.style.display =
+          profileMenu.style.display === 'block' ? 'none' : 'block';
+      });
+    }
 
-window.addEventListener('click', (e) => {
-  if (profileMenu && !profileMenu.contains(e.target)) {
-    profileMenu.style.display = 'none';
-  }
-});
+    // Menutup dropdown otomatis jika klik di luar elemen modal
+    window.addEventListener('click', (e) => {
+      if (profileMenu && !profileMenu.contains(e.target)) {
+        profileMenu.style.display = 'none';
+      }
+    });
   </script>
 </body>
 </html>
-    

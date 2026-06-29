@@ -2,6 +2,50 @@
 
 @section('content')
 
+<style>
+    /* === NAVIGASI CONTROLLER PAGINATION DESIGN SYSTEM === */
+    .pagination-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+        padding: 12px 20px;
+        background: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #e2e8f0;
+    }
+    .pagination-buttons {
+        display: flex;
+        gap: 10px;
+    }
+    .btn-page {
+        background-color: #f4ecdf;
+        color: #4b2207;
+        border: 1px solid #4b2207;
+        padding: 6px 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 700;
+        transition: all 0.2s ease;
+    }
+    .btn-page:hover:not(:disabled) {
+        background-color: #4b2207;
+        color: #ffffff;
+    }
+    .btn-page:disabled {
+        background-color: #e2e8f0;
+        color: #a0aec0;
+        border-color: #cbd5e1;
+        cursor: not-allowed;
+    }
+    .page-info {
+        font-size: 0.95rem;
+        color: #4a5568;
+        font-weight: 600;
+    }
+</style>
+
 <div class="stock-header" style="margin-bottom: 20px;">
     <h2 style="font-size: 28px; font-weight: 700; color: #2d1405;">Stock</h2>
 </div>
@@ -83,10 +127,10 @@
         <a href="{{ route('stock.create') }}" style="padding: 10px 20px; background: #4b2207; color: #fff; text-decoration:none; border-radius: 8px; font-weight: 600;">+ Add New Item</a><br>
     </div>
 </div>
-</br>
+<br>
+
 {{-- ================= TABLE ================= --}}
-{{-- ================= TABLE ================= --}}
-<div class="stock-table-wrapper" style="background: white; border: 1px solid #e5e5e5; border-radius: 16px; overflow: hidden; margin: 0 auto; width: 100%;">
+<div class="stock-table-wrapper" style="background: white; border: 1px solid #e5e5e5; border-radius: 16px; overflow: hidden; margin: 0 auto; width: 100%; display: flex; flex-direction: column;">
     <table class="stock-table" style="width: 100%; border-collapse: collapse; table-layout: auto;">
         <thead style="background: #fafafa;">
             <tr>
@@ -103,7 +147,7 @@
                 <th style="padding: 15px; text-align: center; color: #4b2207; font-weight: 700;">Action</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="stockTableBody">
             @forelse($stocks as $i => $stock)
             <tr style="border-bottom: 1px solid #eee; text-align: center;">
                 <td style="padding: 15px;">{{ $i+1 }}</td>
@@ -131,13 +175,89 @@
                 </td>
             </tr>
             @empty
-            <tr><td colspan="11" style="text-align:center; padding: 20px;">No stock data found</td></tr>
+            <tr class="no-data-row">
+                <td colspan="11" style="text-align:center; padding: 20px; color: #999; font-style: italic;">No stock data found</td>
+            </tr>
             @endforelse
         </tbody>
     </table>
-</div>`
+
+    {{-- NAVIGASI CONTROLLER PAGINATION --}}
+    <div class="pagination-container">
+        <div class="page-info" id="pageInfo">Showing 0 to 0 of 0 entries</div>
+        <div class="pagination-buttons">
+            <button type="button" class="btn-page" id="btnPrev">Previous</button>
+            <button type="button" class="btn-page" id="btnNext">Next</button>
+        </div>
+    </div>
+</div>
+
+{{-- ================= SCRIPTS ================= --}}
+<script>
+    function showDeletePopup(formId) {
+        if (confirm('Are you sure you want to delete this stock item?')) {
+            const form = document.getElementById(formId);
+            if (form) form.submit();
+        }
+    }
+</script>
 
 <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tableBody = document.getElementById('stockTableBody');
+    const rows = Array.from(tableBody.querySelectorAll('tr:not(.no-data-row)'));
+    
+    // Sembunyikan container pagination jika data stok kosong
+    if (rows.length === 0) {
+        document.querySelector('.pagination-container').style.display = 'none';
+        return;
+    }
+
+    const itemsPerPage = 12;
+    let currentPage = 1;
+
+    function paginateTable() {
+        const totalPages = Math.ceil(rows.length / itemsPerPage) || 1;
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+
+        // Sembunyikan seluruh data baris terlebih dahulu
+        rows.forEach(row => row.style.display = 'none');
+
+        // Tampilkan hanya baris yang masuk rentang 12 data halaman aktif
+        const activeRows = rows.slice(startIndex, endIndex);
+        activeRows.forEach(row => row.style.display = '');
+
+        // Update status interaksi tombol navigasi
+        document.getElementById('btnPrev').disabled = currentPage === 1;
+        document.getElementById('btnNext').disabled = currentPage === totalPages;
+
+        const displayStart = startIndex + 1;
+        const displayEnd = Math.min(endIndex, rows.length);
+        document.getElementById('pageInfo').innerText = `Showing ${displayStart} to ${displayEnd} of ${rows.length} entries`;
+    }
+
+    document.getElementById('btnPrev').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            paginateTable();
+        }
+    });
+
+    document.getElementById('btnNext').addEventListener('click', () => {
+        const totalPages = Math.ceil(rows.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            paginateTable();
+        }
+    });
+
+    paginateTable();
+});
+</script>
+
+<script>
+    let lastTimestamp = null;
     async function fetchLastUpdated() {
         const el = document.getElementById('lastUpdatedTime');
         if(!el) return;

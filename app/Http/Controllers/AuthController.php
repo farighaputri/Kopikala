@@ -22,6 +22,12 @@ class AuthController extends Controller
     // ==========================================
     // 2. INTERNAL STAFF/ADMIN LOGIN PROCESS
     // ==========================================
+// ==========================================
+    // 2. INTERNAL STAFF/ADMIN & USER LOGIN PROCESS
+    // ==========================================
+    // ==========================================
+    // 2. INTERNAL STAFF/ADMIN & USER LOGIN PROCESS
+    // ==========================================
     public function login(Request $request)
     {
         $request->validate([
@@ -30,7 +36,25 @@ class AuthController extends Controller
             'login_as' => 'required|in:user,admin'
         ]);
 
+        // === LOGIKA LOGIN ADMIN / STAFF ===
         if ($request->login_as === 'admin') {
+            // 1. Cek apakah email terdaftar di tabel Staff
+            $staff = Staff::where('email', $request->email)->first();
+            
+            if (!$staff) {
+                return back()->with([
+                    'error' => 'Email atau password salah.'
+                ])->withInput($request->only('email'));
+            }
+
+            // 2. Jika akun ada, cek apakah statusnya tidak aktif
+            if ($staff->status !== 'active') {
+                return back()->with([
+                    'error' => 'Akun Anda tidak aktif, hubungi master admin.'
+                ])->withInput($request->only('email'));
+            }
+
+            // 3. Jika aktif, coba lakukan proses otentikasi password
             if (Auth::guard('staff')->attempt([
                 'email' => $request->email,
                 'password' => $request->password,
@@ -52,26 +76,19 @@ class AuthController extends Controller
                     ]
                 ]);
 
-                // ====================================================================
-                // STRATEGI DYNAMIC REDIRECT ANTI-403 (BERDASARKAN PERMISSION DATABASE)
-                // ====================================================================
-
-                // A. Cek Hak Akses Dashboard Pusat
+                // STRATEGI DYNAMIC REDIRECT
                 if ($staff->role_id == 1 || $staff->role?->name === 'Master Admin' || $staff->hasPermission('Main Dashboard')) {
                     return redirect()->route('dashboard')->with('success', 'Selamat datang kembali, Admin Pusat!');
                 }
 
-                // B. Cek Hak Akses Dashboard Cabang Semeru
                 if ($staff->hasPermission('Semeru Dashboard')) {
                     return redirect()->route('semeru.dashboard')->with('success', 'Selamat datang di Panel Cabang Semeru!');
                 }
 
-                // C. Cek Hak Akses Dashboard Cabang Djuanda
                 if ($staff->hasPermission('Djuanda Dashboard')) {
                     return redirect()->route('djuanda.dashboard')->with('success', 'Selamat datang di Panel Cabang Djuanda!');
                 }
 
-                // D. Fallback Kasir / Staff Transaksi Lapangan
                 if ($staff->hasPermission('Semeru Transaction')) {
                     return redirect()->route('semeru.transaction')->with('success', 'Login Berhasil! Selamat Bekerja.');
                 }
@@ -84,21 +101,46 @@ class AuthController extends Controller
                     return redirect()->route('transactions.index')->with('success', 'Login Berhasil!');
                 }
 
-                // E. Fallback Staff Gudang / Logistik (Akses Stok)
                 if ($staff->hasPermission('Stock')) {
                     return redirect()->route('stock.index')->with('success', 'Login Berhasil! Silakan periksa inventaris bahan baku.');
                 }
 
-                // F. Fallback Pengaman Akhir (Profile Staff)
                 return redirect()->route('admin.profile')->with('success', 'Login berhasil! Silakan lengkapi profil Anda.');
             }
 
+            // 4. Jika email terdaftar & aktif, namun password salah
             return back()->with([
-                'error' => 'Email atau password admin salah, atau akun tidak aktif.'
-            ])->withInput();
+                'error' => 'Email atau password salah.'
+            ])->withInput($request->only('email'));
+        }
+
+       // === LOGIKA LOGIN USER / CUSTOMER ===
+        if ($request->login_as === 'user') {
+            // 1. Cek apakah email terdaftar di database
+            $user = User::where('email', $request->email)->first();
+
+            // JIKA AKUN TIDAK ADA DI DATABASE
+            if (!$user) {
+                return back()->with([
+                    'error' => 'Akun belum terdaftar.'
+                ])->withInput($request->only('email', 'login_as'));
+            }
+
+            // 2. Jika akun ada, coba verifikasi email & password lewat Auth Guard
+            if (Auth::guard('web')->attempt([
+                'email' => $request->email,
+                'password' => $request->password
+            ])) {
+                $request->session()->regenerate();
+                return redirect()->route('menu')->with('success', 'Selamat datang kembali!');
+            }
+
+            // JIKA AKUN ADA TAPI PASSWORD SALAH
+            return back()->with([
+                'error' => 'Email atau password salah.'
+            ])->withInput($request->only('email', 'login_as'));
         }
     }
-
     // ==========================================
     // 3. GOOGLE SOCIALITE OAUTH PROCESS (CUSTOMER)
     // ==========================================

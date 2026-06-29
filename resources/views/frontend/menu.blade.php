@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Kopikala</title>
 
-  <link rel="stylesheet"
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
     * {
       margin: 0;
@@ -73,91 +73,134 @@
       color: #f1c27d;
     }
 
-  .profile-icon{
-    font-size: 38px;
-    color: white;
-    transition: .3s;
-}
+    .btn-kontak {
+      background: #f1c27d;
+      color: #3c1f0e !important;
+      padding: 8px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
 
-.profile-icon:hover{
-    color: #f1c27d;
-    transform: scale(1.08);
-}
-/* Container untuk wrapper profil */
-.profile-wrapper {
-  position: relative;
-  display: inline-block;
-}
+    .btn-kontak:hover {
+      background: white;
+    }
 
-/* Kotak Dropdown */
-.profile-dropdown {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  width: 250px;
-  background: #f8f8f8;
-  border-radius: 16px;
-  padding: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  display: none; /* Sembunyi secara default */
-  z-index: 1000;
-  margin-top: 15px;
-  border: 1px solid #eee;
-  text-align: left;
-}
-.profile-avatar{
-    width:45px;
-    height:45px;
+    /* ================= PROFILE DROPDOWN WRAPPER ================= */
+    .profile-wrapper {
+      position: relative;
+      display: inline-block;
+    }
 
-    border-radius:50%;
-    object-fit:cover;
+    .profile-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid rgba(255,255,255,0.7);
+      transition: .3s;
+    }
 
-    cursor:pointer;
+    .profile-avatar:hover {
+      transform: scale(1.08);
+      border-color: #f1c27d;
+    }
 
-    border:2px solid rgba(255,255,255,0.7);
+    /* Kotak Dropdown Utama (Rapi Maksimal) */
+    .profile-dropdown {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 320px; /* Lebar ditambah agar teks tidak sesak */
+      background: #FAFAFA;
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 1000;
+      margin-top: 15px;
+      border: 1px solid #E6DED5;
+      text-align: left;
+    }
 
-    transition:.3s;
-}
+    /* Detail User Box */
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+      width: 100%;
+    }
 
-.profile-avatar:hover{
-    transform:scale(1.08);
-    border-color:#f1c27d;
-}
-/* User Info di dalam dropdown */
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 15px;
-}
+    .user-info img {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid #D8CABD;
+    }
 
-.user-info img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
-}
+    .user-text-details {
+      flex: 1;
+      min-width: 0; /* Mencegah flexbox mendorong elemen keluar */
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
 
-.user-info div { font-size: 14px; }
-.user-info h4 { font-size: 16px; margin: 0; color: #3c1f0e; }
+    .user-info h4 {
+      font-family: 'Comic Neue', cursive;
+      font-size: 18px;
+      margin: 0;
+      color: #3c1f0e;
+      line-height: 1.2;
+      word-break: break-word; /* Teks turun otomatis */
+      white-space: normal;
+    }
 
-/* Link di dalam dropdown */
-.dropdown-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 0;
-  color: #3c1f0e;
-  text-decoration: none;
-  font-size: 16px;
-  border-top: 1px solid #e0e0e0;
-}
+    .user-info span {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13px;
+      color: #6E5443;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
-.dropdown-link.logout { color: #ff4d4d; }
-.dropdown-link:hover { color: #f1c27d; }
+    /* Link & Button Navigasi */
+    .dropdown-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 12px 6px;
+      color: #3c1f0e;
+      text-decoration: none;
+      font-size: 18px;
+      border: none;
+      background: transparent;
+      border-top: 1px solid #E6DED5;
+      font-family: 'Comic Neue', cursive;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .dropdown-link:hover {
+      color: #f1c27d;
+    }
+
+    .dropdown-link.logout {
+      color: #ff4d4d;
+    }
+
+    .dropdown-link.logout:hover {
+      color: #cc0000;
+    }
+
     /* === HERO === */
     .hero {
-      background: url('media/moment.png') center/cover no-repeat;
+      background: url("{{ asset('media/moment.png') }}") center/cover no-repeat;
       height: 100vh;
       display: flex;
       align-items: center;
@@ -193,7 +236,7 @@
       overflow: hidden;
       background-image:
         linear-gradient(rgba(244, 236, 223, 0.92), rgba(249, 233, 206, 0.92)),
-        url('media/BG JAM.png');
+        url("{{ asset('media/BG JAM.png') }}");
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
@@ -242,6 +285,7 @@
     .kopi-right-top { top: 30px; right: 30px; transform: rotate(-8deg); }
     .kopi-right-bottom { bottom: 30px; right: 30px; transform: rotate(-5deg); }
 
+    /* === MENU === */
     section.menu {
       display: flex;
       width: 100%;
@@ -250,12 +294,11 @@
 
     .menu .left {
       flex: 1;
-      background: url('media/menu.jpg') center/cover no-repeat;
+      background: url("{{ asset('media/menu.jpg') }}") center/cover no-repeat;
       position: relative;
       transition: background-image 0.4s ease-in-out;
     }
 
-    /* Overlay Teks Komposisi di Bawah Gambar Kiri saat Item Aktif */
     .menu-detail-overlay {
       position: absolute;
       bottom: 30px;
@@ -266,7 +309,7 @@
       border-radius: 4px;
       font-size: 1.3rem;
       font-weight: 600;
-      display: none; /* Muncul hanya jika ada item menu diklik */
+      display: none;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
@@ -286,7 +329,6 @@
       font-weight: 700;
     }
 
-    /* List Item Menyesuaikan Hover dan Efek Klik Kotak Krem */
     .menu-item {
       font-size: 1.8rem;
       padding: 12px 20px;
@@ -298,7 +340,6 @@
       transition: all 0.3s ease;
     }
 
-    /* Garis bawah default sebelum diklik */
     .menu-item::after {
       content: "";
       position: absolute;
@@ -310,12 +351,10 @@
       transition: background-color 0.3s ease;
     }
 
-    /* Hover Teks Menu */
     .menu-item:hover {
       color: #f1c27d;
     }
 
-    /* KEADAAN AKTIF PAS DIKLIK: Berubah Jadi Kotak Krem Persis Gambar Pertama */
     .menu-item.active {
       background-color: #e6dac6;
       color: #3c1f0e !important;
@@ -324,7 +363,6 @@
       box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
     }
 
-    /* Sembunyikan garis bawah untuk item yang aktif */
     .menu-item.active::after {
       background-color: transparent;
     }
@@ -340,7 +378,7 @@
       position: relative;
       width: 100%;
       min-height: 100vh;
-      background: url('media/BG JAM.png') center/cover no-repeat;
+      background: url("{{ asset('media/BG JAM.png') }}") center/cover no-repeat;
       background-attachment: fixed;
       display: flex;
       flex-direction: column;
@@ -412,262 +450,159 @@
 
     .rotate-left { transform: rotate(-3deg); }
     .rotate-right { transform: rotate(3deg); }
-/* ================= FOOTER ================= */
-
-footer{
-    background-color:#3c1f0e;
-    color:#fff8f0;
-
-    padding:70px 60px 0;
-
-    position:relative;
-    overflow:hidden;
-}
-
-/* CONTAINER */
-.footer-container{
-    max-width:1200px;
-    margin:0 auto;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:flex-start;
-    gap:50px;
-
-    position:relative;
-    z-index:5;
-}
-
-/* ================= LEFT ================= */
-
-.footer-left{
-    flex:1;
-}
-
-.footer-left img{
-    width:180px;
-    height:auto;
-}
-
-.footer-left p{
-    margin-top:10px;
-
-    font-size:1.05rem;
-    color:#f8e6cc;
-
-    max-width:280px;
-    line-height:1.6;
-}
-
-/* ================= CENTER ================= */
-
-.footer-center{
-    flex:10;
-    text-align:center;
-    margin-top: -20px;
-}
-
-.footer-center h3{
-    margin-bottom:16px;
-    font-size:1.4rem;
-    margin-top: -10px;
-    
-}
-
-.footer-center ul{
-    list-style:none;
-    padding:0;
-    margin:0;
-}
-
-.footer-center li{
-    margin-bottom:10px;
-}
-
-.footer-center a{
-    color:#fff8f0;
-    font-size:1.05rem;
-    transition:.3s;
-}
-
-.footer-center a:hover{
-    color:#f1c27d;
-}
-
-footer {
-    margin-top: 90px;
-    background: #3b1604;
-    color: white;
-    padding-top: 80px;
-    padding-bottom: 25px;
-}
-
-.footer-container {
-    max-width: var(--container);
-    margin: 0 auto;
-
-    padding: 0 45px;
-
-    display: flex;
-    justify-content: space-between;
-
-    align-items: flex-start; 
-}
 
-.footer-left img {
-    width: 190px; /* kecilin logo */
-    margin-top: -60px;
-
-}
-
-.footer-left p {
-    margin-top: 6px;
-    font-size: 15px;
-    white-space:nowrap; /* biar ga turun */
-}
-
-.footer-title {
-    font-size: 18px; /* kecilin title */
-    margin-bottom: 10px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-weight: 700;
-}
-
-.footer-links {
-    list-style: none;
-    padding: 0;
-}
-
-.footer-links li {
-    margin-bottom: 8px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    font-size: 12px;
-}
-
-/* ================= FOOTER RIGHT ================= */
-
-.footer-right{
-    flex:1;
-
-    display:flex;
-    flex-direction:column;
-
-    align-items:flex-end; /* pojok kanan */
-    text-align:right;
-}
-
-/* Judul */
-.footer-right h3{
-    margin:0 0 14px;
-
-    font-size:1.2rem;
-    color:#fff8f0;
-
-    white-space:nowrap; /* biar ga turun */
-    margin-top: -30px;
-}
-
-/* ================= SOCIAL ICONS ================= */
-
-.social-icons{
-    display:flex;
-    justify-content:flex-end;
-    align-items:center;
-
-    gap:14px;
-}
-
-/* Link */
-.social-icons a{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-/* Icon */
-.social-icons img{
-    width:34px;
-    height:34px;
-
-    object-fit:contain;
-
-    transition:0.3s ease;
-}
-
-/* Hover */
-.social-icons img:hover{
-    transform:scale(1.12);
-}
-
-    /* ================= FOOTER CUPS ================= */
-.footer-cups{
-    width:100vw;
-    height:120px;
-
-    position:relative;
-
-    display:flex;
-    justify-content:space-evenly;
-    align-items:flex-end;
-
-    padding:0 10px;
-
-    left:50%;
-    right:50%;
-    margin-left:-50vw;
-    margin-right:-50vw;
-
-    overflow:visible;
-
-    /* background utama footer */
-    background:transparent;
-}
-
-/* COKLAT MUDA DI TENGAH */
-.footer-cups::before{
-    content:'';
-
-    position:absolute;
-
-    left:0;
-    top:100%;
-
-    transform:translateY(-50%);
-
-    width:100%;
-    height:90px;
-
-    background:#8b6345;
-
-    z-index:1;
-}
-
-/* CUP */
-.footer-cups img{
-    position:relative;
-    z-index:3;
-
-    width:auto;
-    height:110px;
-
-    object-fit:contain;
-    display:block;
-
-    flex-shrink:0;
-}
-
-/* POSISI CUP BEBAS */
-.footer-cups img:nth-child(1){ transform:translateY(-10px); }
-.footer-cups img:nth-child(2){ transform:translateY(8px); }
-.footer-cups img:nth-child(3){ transform:translateY(-6px); }
-.footer-cups img:nth-child(4){ transform:translateY(5px); }
-.footer-cups img:nth-child(5){ transform:translateY(-10px); }
-.footer-cups img:nth-child(6){ transform:translateY(8px); }
-.footer-cups img:nth-child(7){ transform:translateY(-6px); }
-.footer-cups img:nth-child(8){ transform:translateY(5px); }
-.footer-cups img:nth-child(9){ transform:translateY(-10px); }
-.footer-cups img:nth-child(10){ transform:translateY(8px); }
-.footer-cups img:nth-child(11){ transform:translateY(-6px); }
+    /* === FOOTER === */
+    footer {
+      margin-top: 90px;
+      background: #3b1604;
+      color: white;
+      padding: 80px 60px 25px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start; 
+      gap: 50px;
+    }
+
+    .footer-left img {
+      width: 190px;
+      margin-top: -60px;
+    }
+
+    .footer-left p {
+      margin-top: 6px;
+      font-size: 15px;
+      color: #f8e6cc;
+      white-space: nowrap; 
+    }
+
+    .footer-center {
+      flex: 10;
+      text-align: center;
+      margin-top: -20px;
+    }
+
+    .footer-center h3 {
+      margin-bottom: 16px;
+      font-size: 1.4rem;
+      margin-top: -10px;
+    }
+
+    .footer-center ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-center li {
+      margin-bottom: 10px;
+    }
+
+    .footer-center a {
+      color: #fff8f0;
+      font-size: 1.05rem;
+      transition: .3s;
+    }
+
+    .footer-center a:hover {
+      color: #f1c27d;
+    }
+
+    .footer-right {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end; 
+      text-align: right;
+    }
+
+    .footer-right h3 {
+      margin: 0 0 14px;
+      font-size: 1.2rem;
+      color: #fff8f0;
+      white-space: nowrap; 
+      margin-top: -30px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .social-icons a {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .social-icons img {
+      width: 34px;
+      height: 34px;
+      object-fit: contain;
+      transition: 0.3s ease;
+    }
+
+    .social-icons img:hover {
+      transform: scale(1.12);
+    }
+
+    .footer-cups {
+      width: 100vw;
+      height: 120px;
+      position: relative;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: flex-end;
+      padding: 0 10px;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      overflow: visible;
+      background: transparent;
+    }
+
+    .footer-cups::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 100%;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 90px;
+      background: #8b6345;
+      z-index: 1;
+    }
+
+    .footer-cups img {
+      position: relative;
+      z-index: 3;
+      width: auto;
+      height: 110px;
+      object-fit: contain;
+      display: block;
+      flex-shrink: 0;
+    }
+
+    .footer-cups img:nth-child(1){ transform:translateY(-10px); }
+    .footer-cups img:nth-child(2){ transform:translateY(8px); }
+    .footer-cups img:nth-child(3){ transform:translateY(-6px); }
+    .footer-cups img:nth-child(4){ transform:translateY(5px); }
+    .footer-cups img:nth-child(5){ transform:translateY(-10px); }
+    .footer-cups img:nth-child(6){ transform:translateY(8px); }
+    .footer-cups img:nth-child(7){ transform:translateY(-6px); }
+    .footer-cups img:nth-child(8){ transform:translateY(5px); }
+    .footer-cups img:nth-child(9){ transform:translateY(-10px); }
+    .footer-cups img:nth-child(10){ transform:translateY(8px); }
+    .footer-cups img:nth-child(11){ transform:translateY(-6px); }
 
     @media (max-width: 900px) {
       header { flex-direction: column; padding: 15px; gap: 15px; }
@@ -681,6 +616,8 @@ footer {
       .polaroid { width: 160px; }
       .polaroid img { height: 200px; }
       .footer-container { flex-direction: column; text-align: center; align-items: center; gap: 30px; }
+      .footer-left img { margin-top: 0; }
+      .footer-right h3 { margin-top: 0; }
       .footer-left, .footer-center, .footer-right { text-align: center; }
       .social-icons { justify-content: center; }
       .footer-cups img { width: 70px; }
@@ -691,56 +628,48 @@ footer {
 <body>
   <header id="navbar">
     <div class="logo">
-      <img src="media/logo.png" alt="Logo Kopikala">
+      <img src="{{ asset('media/logo.png') }}" alt="Logo Kopikala">
     </div>
     <nav>
-  <a href="{{ route('menu') }}">menu</a>
-  <a href="{{ route('frontend.about') }}">tentang</a>
-  <a href="{{ route('frontend.sobatkala') }}">#sobatkala</a>
-  <a href="{{ route('frontend.order') }}">pemesanan</a>
+      <a href="{{ route('menu') }}">menu</a>
+      <a href="{{ route('frontend.about') }}">tentang</a>
+      <a href="{{ route('frontend.sobatkala') }}">#sobatkala</a>
+      <a href="{{ route('frontend.order') }}">pemesanan</a>
 
-  @auth
-  <div class="profile-wrapper">
-    <img 
-    src="{{ auth()->user()->avatar 
-        ? asset('storage/' . auth()->user()->avatar) 
-        : asset('media/default-avatar.png') }}"
-        
-    alt="Profile"
-    id="profileToggle"
-    class="profile-avatar">
-    
-    <div class="profile-dropdown" id="profileMenu">
-      <div class="user-info">
+      @auth
+      <div class="profile-wrapper">
         <img 
-    src="{{ auth()->user()->avatar 
-        ? asset('storage/' . auth()->user()->avatar) 
-        : asset('media/default-avatar.png') }}"
+          src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('media/default-avatar.png') }}"
+          alt="Profile"
+          id="profileToggle"
+          class="profile-avatar"
+        >
         
-    alt="Profile"> <div>
-          <h4>{{ auth()->user()->name }}</h4>
-          <span>{{ auth()->user()->email }}</span>
+        <div class="profile-dropdown" id="profileMenu">
+          <div class="user-info">
+            <img src="{{ auth()->user()->avatar ? asset('storage/' . auth()->user()->avatar) : asset('media/default-avatar.png') }}" alt="Profile"> 
+            <div class="user-text-details">
+              <h4>{{ auth()->user()->name }}</h4>
+              <span>{{ auth()->user()->email }}</span>
+            </div>
+          </div>
+          
+          <a href="{{ route('profile.show') }}" class="dropdown-link">
+            <span>My Profile</span> <i class="fas fa-chevron-right"></i>
+          </a>
+
+          <form action="{{ route('logout.user') }}" method="POST" style="display:block; margin:0;">
+            @csrf
+            <button type="submit" class="dropdown-link logout">
+                <span>Log Out</span> <i class="fas fa-sign-out-alt"></i>
+            </button>
+          </form>
         </div>
       </div>
-      
-      <a href="{{ route('profile.show') }}" class="dropdown-link">
-    My Profile <i class="fas fa-chevron-right"></i>
-</a>
-
-<form action="{{ route('logout.user') }}" method="POST" style="display:inline;">
-    @csrf
-    <button type="submit"
-            class="dropdown-link logout"
-            style="background:none;border:none;padding:0;cursor:pointer;">
-        Log Out <i class="fas fa-sign-out-alt"></i>
-    </button>
-</form>
-    </div>
-  </div>
-  @else
-    <a href="{{ route('login') }}" class="btn-kontak">Login</a>
-  @endauth
-</nav>
+      @else
+        <a href="{{ route('login') }}" class="btn-kontak">Login</a>
+      @endauth
+    </nav>
   </header>
 
   <section class="hero" id="home">
@@ -748,10 +677,10 @@ footer {
   </section>
 
   <section class="kenalan" id="tentang">
-    <img src="media/kopi1.png" class="kopi-dekorasi kopi-left-top" alt="kopi">
-    <img src="media/kopi2.png" class="kopi-dekorasi kopi-left-bottom" alt="kopi">
-    <img src="media/kopi3.png" class="kopi-dekorasi kopi-right-top" alt="kopi">
-    <img src="media/kopi4.png" class="kopi-dekorasi kopi-right-bottom" alt="kopi">
+    <img src="{{ asset('media/kopi1.png') }}" class="kopi-dekorasi kopi-left-top" alt="kopi">
+    <img src="{{ asset('media/kopi2.png') }}" class="kopi-dekorasi kopi-left-bottom" alt="kopi">
+    <img src="{{ asset('media/kopi3.png') }}" class="kopi-dekorasi kopi-right-top" alt="kopi">
+    <img src="{{ asset('media/kopi4.png') }}" class="kopi-dekorasi kopi-right-bottom" alt="kopi">
 
     <div class="content">
       <h2>Kenalin, Kami Kopikala!</h2>
@@ -767,10 +696,10 @@ footer {
     
     <div class="right">
       <h1>Menu Kopikala</h1>
-      <div class="menu-item" data-img="media/kopikala.png" data-text="Kopikala - Kopi, Susu, Gula Aren">Kopikala</div>
-      <div class="menu-item" data-img="media/kopi susu.png" data-text="Kopi Susu - Kopi, Susu, Gula">Kopi Susu</div>
-      <div class="menu-item" data-img="media/susu aren.png" data-text="Susu Aren - Susu, Gula Aren">Susu Aren</div>
-      <div class="menu-item" data-img="media/susu pisang.jpg" data-text="Susu Pisang - Susu, Ekstrak Pisang">Susu Pisang</div>
+      <div class="menu-item" data-img="{{ asset('media/kopikala.png') }}" data-text="Kopikala - Kopi, Susu, Gula Aren">Kopikala</div>
+      <div class="menu-item" data-img="{{ asset('media/kopi susu.png') }}" data-text="Kopi Susu - Kopi, Susu, Gula">Kopi Susu</div>
+      <div class="menu-item" data-img="{{ asset('media/susu aren.png') }}" data-text="Susu Aren - Susu, Gula Aren">Susu Aren</div>
+      <div class="menu-item" data-img="{{ asset('media/susu pisang.jpg') }}" data-text="Susu Pisang - Susu, Ekstrak Pisang">Susu Pisang</div>
       
       <div class="footer">
         Pemesanan melalui gofood dan Instagram <b>@kopikalaaaa</b>
@@ -784,15 +713,15 @@ footer {
       <p>Kamu sudah jadi bagian dari <b>#sobatkala</b> belum?</p>
 
       <div class="gallery">
-        <div class="polaroid rotate-left"><img src="media/sobat1.jpg" alt="Sobatkala 1"></div>
-        <div class="polaroid rotate-right"><img src="media/sobat2.jpg" alt="Sobatkala 2"></div>
-        <div class="polaroid rotate-left"><img src="media/sobat3.jpg" alt="Sobatkala 3"></div>
-        <div class="polaroid rotate-right"><img src="media/sobat4.jpg" alt="Sobatkala 4"></div>
-        <div class="polaroid rotate-left"><img src="media/sobat5.jpg" alt="Sobatkala 5"></div>
-        <div class="polaroid rotate-right"><img src="media/sobat6.jpg" alt="Sobatkala 6"></div>
-        <div class="polaroid rotate-left"><img src="media/sobat7.jpg" alt="Sobatkala 7"></div>
-        <div class="polaroid rotate-right"><img src="media/sobat8.jpg" alt="Sobatkala 8"></div>
-        <div class="polaroid rotate-left"><img src="media/sobat9.jpg" alt="Sobatkala 9"></div>
+        <div class="polaroid rotate-left"><img src="{{ asset('media/sobat1.jpg') }}" alt="Sobatkala 1"></div>
+        <div class="polaroid rotate-right"><img src="{{ asset('media/sobat2.jpg') }}" alt="Sobatkala 2"></div>
+        <div class="polaroid rotate-left"><img src="{{ asset('media/sobat3.jpg') }}" alt="Sobatkala 3"></div>
+        <div class="polaroid rotate-right"><img src="{{ asset('media/sobat4.jpg') }}" alt="Sobatkala 4"></div>
+        <div class="polaroid rotate-left"><img src="{{ asset('media/sobat5.jpg') }}" alt="Sobatkala 5"></div>
+        <div class="polaroid rotate-right"><img src="{{ asset('media/sobat6.jpg') }}" alt="Sobatkala 6"></div>
+        <div class="polaroid rotate-left"><img src="{{ asset('media/sobat7.jpg') }}" alt="Sobatkala 7"></div>
+        <div class="polaroid rotate-right"><img src="{{ asset('media/sobat8.jpg') }}" alt="Sobatkala 8"></div>
+        <div class="polaroid rotate-left"><img src="{{ asset('media/sobat9.jpg') }}" alt="Sobatkala 9"></div>
       </div>
     </div>
   </section>
@@ -800,7 +729,7 @@ footer {
   <footer>
     <div class="footer-container">
       <div class="footer-left">
-        <img src="media/logo.png" alt="Logo Kopikala">
+        <img src="{{ asset('media/logo.png') }}" alt="Logo Kopikala">
         <p>Harga Terjangkau, Kualitas Terjaga!</p>
       </div>
 
@@ -817,39 +746,36 @@ footer {
         <h3>Ayo jadi #sobatkala!</h3>
         <div class="social-icons">
           <a href="https://www.instagram.com/kopikalaaa/" target="_blank">
-        <img src="media/Instagram.png" alt="Instagram">
-        </a>
-         <a href="https://linkedin.com/company/kopikala"
-   target="_blank">
-    <img src="media/Linkedin.png" alt="LinkedIn">
-</a>
-          <a href="https://wa.me/6281410882927"
-   target="_blank"
-   rel="noopener noreferrer">
-    <img src="media/Whatsapp.png" alt="WhatsApp">
-</a>
+            <img src="{{ asset('media/Instagram.png') }}" alt="Instagram">
+          </a>
+          <a href="https://linkedin.com/company/kopikala" target="_blank">
+            <img src="{{ asset('media/Linkedin.png') }}" alt="LinkedIn">
+          </a>
+          <a href="https://wa.me/6281410882927" target="_blank" rel="noopener noreferrer">
+            <img src="{{ asset('media/Whatsapp.png') }}" alt="WhatsApp">
+          </a>
         </div>
       </div>
     </div>
 
     <div class="footer-cups">
-      <img src="media/Kopi Ga Miring01.png" alt="cup">
-      <img src="media/Kopi Ga Miring02.png" alt="cup">
-      <img src="media/Kopi Ga Miring03.png" alt="cup">
-      <img src="media/Kopi Ga Miring04.png" alt="cup">
-      <img src="media/Kopi Ga Miring01.png" alt="cup">
-      <img src="media/Kopi Ga Miring02.png" alt="cup">
-      <img src="media/Kopi Ga Miring03.png" alt="cup">
-      <img src="media/Kopi Ga Miring04.png" alt="cup">
-      <img src="media/Kopi Ga Miring01.png" alt="cup">
-      <img src="media/Kopi Ga Miring02.png" alt="cup">
-      <img src="media/Kopi Ga Miring03.png" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring04.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring01.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring02.png') }}" alt="cup">
+      <img src="{{ asset('media/Kopi Ga Miring03.png') }}" alt="cup">
     </div>
   </footer>
+
 <script>
     // 1. SCROLL NAVBAR
     const navbar = document.getElementById('navbar');
-
     window.addEventListener('scroll', () => {
         if (window.scrollY > 100) {
             navbar.classList.add('scrolled');
@@ -861,7 +787,7 @@ footer {
     // 2. INTERAKSI MENU
     const menuImage = document.getElementById('menuImage');
     const menuOverlay = document.getElementById('menuOverlay');
-    const defaultImage = 'media/menu.jpg';
+    const defaultImage = "{{ asset('media/menu.jpg') }}";
     const menuItems = document.querySelectorAll('.menu-item');
 
     menuItems.forEach(item => {
@@ -903,12 +829,6 @@ footer {
             }
         }
     });
-
-    // 5. LOGOUT FUNCTION (GLOBAL SCOPE — FIXED)
-    function logout(e) {
-        e.preventDefault();
-        document.getElementById('logout-form').submit();
-    }
 </script>
 </body>
 </html>

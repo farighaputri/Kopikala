@@ -18,9 +18,6 @@ class FrontendOrderController extends Controller
         ->where('status', 1)
         ->get();
 
-        // Debug (hapus komentar untuk cek apakah data customization masuk)
-        // dd($products->toArray());
-
         // Ambil cabang pertama
         $branch = Branch::first();
 

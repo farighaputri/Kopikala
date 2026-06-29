@@ -157,7 +157,7 @@ public function success(Request $request)
     // Fallback: Midtrans terkadang mengirim nilai gross_amount sebagai string / integer langsung
     $subtotal = $request->input('gross_amount');
 
-    // Perbaikan typo fatal pada namespace Str
+
     if (!$midtransOrderId) {
         $midtransOrderId = 'ORD-' . strtoupper(\Illuminate\Support\Str::random(8));
     }
@@ -193,9 +193,9 @@ public function success(Request $request)
             'email'         => $customer['email'] ?? 'customer@mail.com',
             'phone'         => $customer['phone'] ?? '-',
             'quantity'      => collect($cart)->sum('qty'),
-            'status'        => 'Order Confirmed', // Pastikan status ini ada di enum migrasi database Anda
+            'status'        => 'Order Confirmed', 
             'total'         => (int)$subtotal,
-            'items'         => $cart, // Array akan otomatis diubah ke JSON oleh model cast
+            'items'         => $cart, 
             'branch_id'     => $branchId, 
             'location'      => null,
         ]);

@@ -9,7 +9,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    // TAMBAHKAN 'status' DI SINI
+
     protected $fillable = ['name', 'status']; 
 
     public function stocks()

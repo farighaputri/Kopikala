@@ -7,56 +7,57 @@ use App\Models\Branch;
 
 class CartController extends Controller
 {
-    public function index()
-    {
-        // ambil cart dari session
-        $cart = session()->get('cart', []);
+   public function index()
+{
+    // Ambil cart dari session
+    $cart = session()->get('cart', []);
 
-        // ambil semua cabang
-        $branches = Branch::all();
+    // Ambil semua cabang
+    $branches = Branch::all();
 
-        // subtotal
-        $subtotal = 0;
+    // Subtotal
+    $subtotal = 0;
 
-        foreach ($cart as $item) {
-
-            $subtotal +=
-                $item['price'] * $item['qty'];
-        }
-
-        return view(
-            'frontend.cart',
-            compact(
-                'cart',
-                'branches',
-                'subtotal'
-            )
-        );
+    foreach ($cart as $item) {
+        $subtotal += $item['price'] * $item['qty'];
     }
 
+    return view(
+        'frontend.cart',
+        compact(
+            'cart',
+            'branches',
+            'subtotal'
+        )
+    );
+}
     public function updateBranch(Request $request)
     {
+        // Validasi input pastikan branch_id dikirim dan ada nilainya
+        $request->validate([
+            'branch_id' => 'required'
+        ]);
+
         session([
             'selected_branch' => $request->branch_id
         ]);
 
-        return back();
+        // Hapus pesan error jika branch berhasil dipilih
+        session()->forget('error');
+
+        return back()->with('success', 'Cabang berhasil dipilih!');
     }
 
     public function updateQty(Request $request)
     {
         $cart = session()->get('cart', []);
-
         $id = $request->cart_id;
 
         if (isset($cart[$id])) {
+            $cart[$id]['qty'] = $request->qty;
 
-            $cart[$id]['qty'] =
-                $request->qty;
-
-            // hapus kalau qty <= 0
+            // Hapus jika qty <= 0
             if ($cart[$id]['qty'] <= 0) {
-
                 unset($cart[$id]);
             }
         }
@@ -67,37 +68,35 @@ class CartController extends Controller
             'success' => true
         ]);
     }
-  public function addToCart(Request $request)
-{
-    $cart = session()->get('cart', []);
 
-    $cartId = md5(
-        $request->product_id .
-        json_encode($request->options ?? [])
-    );
+    public function addToCart(Request $request)
+    {
+        $cart = session()->get('cart', []);
 
-    if (isset($cart[$cartId])) {
+        $cartId = md5(
+            $request->product_id .
+            json_encode($request->options ?? [])
+        );
 
-        $cart[$cartId]['qty'] += (int) $request->qty;
+        if (isset($cart[$cartId])) {
+            $cart[$cartId]['qty'] += (int) $request->qty;
+        } else {
+            $cart[$cartId] = [
+                'id'         => $cartId,
+                'product_id' => $request->product_id,
+                'name'       => $request->name,
+                'price'      => $request->price,
+                'qty'        => (int) $request->qty,
+                'image'      => $request->image,
+                'options'    => $request->options ?? []
+            ];
+        }
 
-    } else {
+        session()->put('cart', $cart);
 
-        $cart[$cartId] = [
-            'id'         => $cartId,
-            'product_id' => $request->product_id,
-            'name'       => $request->name,
-            'price'      => $request->price,
-            'qty'        => (int) $request->qty,
-            'image'      => $request->image,
-            'options'    => $request->options ?? []
-        ];
+        return response()->json([
+            'success' => true,
+            'cart_count' => collect($cart)->sum('qty')
+        ]);
     }
-
-    session()->put('cart', $cart);
-
-    return response()->json([
-        'success' => true,
-        'cart_count' => collect($cart)->sum('qty')
-    ]);
-}
 }

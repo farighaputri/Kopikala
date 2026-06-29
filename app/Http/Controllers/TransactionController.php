@@ -11,26 +11,38 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Exports\TransactionsExport;
 use App\Models\Product;
 use App\Models\TransactionDetail;
+use Carbon\Carbon;
 
 class TransactionController extends Controller
 {
-    /* ================= EXPORT ================= */
+    /* ================= EXPORT (UPDATED WITH DATE FILTER) ================= */
 
-    public function exportExcel()
+    public function exportExcel(Request $request)
     {
-        return Excel::download(new TransactionsExport, 'transactions.xlsx');
+        // Oper request ke class TransactionsExport agar file Excel juga bisa memfilter tanggal
+        return Excel::download(new TransactionsExport($request), 'transactions.xlsx');
     }
 
-    public function exportPdf()
+    public function exportPdf(Request $request)
     {
-        $transactions = Transaction::with('branch')->latest()->get();
+        $query = Transaction::with('branch');
 
+        // Membaca filter tanggal yang dikirimkan dari halaman index
+        if ($request->filled('start_date') && $request->filled('end_date')) {
+            $startDate = Carbon::parse($request->start_date)->startOfDay();
+            $endDate = Carbon::parse($request->end_date)->endOfDay();
+
+            $query->whereBetween('created_at', [$startDate, $endDate]);
+        }
+
+        $transactions = $query->latest()->get();
+
+        // KOREKSI: Mengarah ke file template 'transactions.index-pdf' milikmu
         $pdf = Pdf::loadView('transactions.index-pdf', compact('transactions'))
-            ->setPaper('A4', 'landscape');
+            ->setPaper('A4', 'landscape'); // Tetap gunakan landscape sesuai bawaan kodemu
 
         return $pdf->download('transactions.pdf');
     }
-
     /* ================= FRONTEND ================= */
 
     public function createFrontend()
@@ -59,38 +71,31 @@ class TransactionController extends Controller
             'branch_id' => 'required|exists:branches,id',
         ]);
 
-     
         $pickupCode = $this->generatePickupCode($validated['branch_id']);
-$transaction = Transaction::create([
-    'user_id' => auth()->id(),
-    'order_id' => 'ORD-' . now()->format('YmdHis') . '-' . rand(100, 999),
+        
+        $transaction = Transaction::create([
+            'user_id' => auth()->id(),
+            'order_id' => 'ORD-' . now()->format('YmdHis') . '-' . rand(100, 999),
+            'customer_name' => $validated['customer_name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'items' => $validated['items'],
+            'quantity' => collect($validated['items'])->sum('qty'),
+            'total' => $validated['total'],
+            'status' => 'Waiting Confirmation',
+            'branch_id' => $validated['branch_id'],
+            'pickup_code' => $pickupCode,
+        ]);
 
-    'customer_name' => $validated['customer_name'],
-    'email' => $validated['email'],
-    'phone' => $validated['phone'],
-
-    'items' => $validated['items'],
-    'quantity' => collect($validated['items'])->sum('qty'),
-    'total' => $validated['total'],
-    'status' => 'Waiting Confirmation',
-    'branch_id' => $validated['branch_id'],
-
-    'pickup_code' => $pickupCode,
-]);
-foreach ($validated['items'] as $item) {
-
-    TransactionDetail::create([
-        'transaction_id' => $transaction->id,
-
-        'product_id' => $item['product_id'],
-
-        'qty' => $item['qty'],
-
-        'price' => $item['price'],
-
-        'subtotal' => $item['qty'] * $item['price']
-    ]);
-}
+        foreach ($validated['items'] as $item) {
+            TransactionDetail::create([
+                'transaction_id' => $transaction->id,
+                'product_id' => $item['product_id'],
+                'qty' => $item['qty'],
+                'price' => $item['price'],
+                'subtotal' => $item['qty'] * $item['price']
+            ]);
+        }
 
         return response()->json([
             'status' => true,
@@ -103,7 +108,6 @@ foreach ($validated['items'] as $item) {
     public function confirmation($order_id)
     {
         $order = Transaction::where('order_id', $order_id)->firstOrFail();
-
         $items = $order->items;
 
         if (is_string($items)) {
@@ -116,9 +120,9 @@ foreach ($validated['items'] as $item) {
     public function orderDetail($id)
     {
         $transaction = Transaction::with([
-    'branch',
-    'details.product'
-])->findOrFail($id);
+            'branch',
+            'details.product'
+        ])->findOrFail($id);
 
         $items = $transaction->items;
 
@@ -132,26 +136,22 @@ foreach ($validated['items'] as $item) {
 
         return view('frontend.orders.order_detail', compact('transaction', 'items'));
     }
+
     public function downloadReceipt($id)
-{
-    $transaction = Transaction::with('branch')
-        ->findOrFail($id);
+    {
+        $transaction = Transaction::with('branch')->findOrFail($id);
+        $items = $transaction->items;
 
-    $items = $transaction->items;
+        if (is_string($items)) {
+            $items = json_decode($items, true);
+        }
 
-    if (is_string($items)) {
-        $items = json_decode($items, true);
+        if (!$items) {
+            $items = [];
+        }
+
+        return view('frontend.orders.receipt', compact('transaction', 'items'));
     }
-
-    if (!$items) {
-        $items = [];
-    }
-
-    return view(
-        'frontend.orders.receipt',
-        compact('transaction', 'items')
-    );
-}
 
     /* ================= BACKEND ================= */
 
@@ -179,7 +179,7 @@ foreach ($validated['items'] as $item) {
     public function updateStatus(Request $request, $order_id)
     {
         $request->validate([
-            'status' => 'required|in:Waiting Confirmation,Order Confirmed,Order Ready,Order Finished'
+            'status' => 'required|in:Waiting Confirmation,Order Confirmed,Order Ready,Order Finished,Canceled'
         ]);
 
         $transaction = Transaction::where('order_id', $order_id)->firstOrFail();
@@ -247,17 +247,15 @@ foreach ($validated['items'] as $item) {
                 'Waiting Confirmation',
                 'Order Confirmed',
                 'Order Ready',
-                'Order Finished'
+                'Order Finished',
+                'Canceled'
             ])
             ->latest()
             ->get();
 
         $branches = Branch::all();
 
-return view('frontend.orders.my', compact(
-    'transactions',
-    'branches'
-));
+        return view('frontend.orders.my', compact('transactions', 'branches'));
     }
 
     /* ================= API CHECK STATUS ================= */
@@ -277,12 +275,9 @@ return view('frontend.orders.my', compact(
 
     /* ================= PICKUP CODE GENERATOR ================= */
 
-   private function generatePickupCode($branch_id)
-{
-    $code = 'KOPIKALA-' .
-            $branch_id . '-' .
-            now()->format('Hi');
-
-    return $code;
-}
+    private function generatePickupCode($branch_id)
+    {
+        $code = 'KOPIKALA-' . $branch_id . '-' . now()->format('Hi');
+        return $code;
+    }
 }
